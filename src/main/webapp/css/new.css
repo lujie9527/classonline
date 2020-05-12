@@ -1,0 +1,82 @@
+.footer .foot .copyright ul li a:hover span {
+    color: #FFF;
+}
+
+.footer {
+    width: 100%;
+    background: #2A2D34;
+}
+/* line 526, sass/index.scss */
+.footer .foot {
+    margin: 0 auto;
+}
+
+.footer .foot .copyright ul {
+    text-align: center;
+    width: 1170px;
+    height: 80px;
+    border-bottom: 1px solid #474A51;
+    line-height: 100px;
+    background: none no-repeat 0 0;
+    margin: 0 auto;
+    overflow: hidden;
+    letter-spacing: -2px;
+    word-spacing: -1px;
+}
+/* line 535, sass/index.scss */
+.footer .foot .copyright ul li {
+    cursor: pointer;
+    background: none no-repeat 0 0;
+    padding: 0 0 0 0;
+    display: inline-block;
+}
+/* line 538, sass/index.scss */
+.footer .foot .copyright ul li a{
+    float: left;
+    line-height: 24px;
+    cursor: pointer;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-decoration: none;
+}
+.footer .foot .copyright ul li a .fw{
+    width: 12px;
+    height: 14px;
+    background: url(../../../V8/style/v8_blue/image/fw.png) no-repeat;
+    padding: 0;
+}
+.footer .foot .copyright ul li a .zkc {
+    width: 12px;
+    height: 14px;
+    background: url(../../../V8/style/v8_blue/image/zkc.png) no-repeat;
+    padding: 0;
+}
+.footer .foot .copyright ul li a .zx {
+    width: 12px;
+    height: 14px;
+    background: url(../../../V8/style/v8_blue/image/zx.png) no-repeat;
+    padding: 0;
+}
+.footer .foot .copyright ul li a span {
+    color: #8A8A8A;;
+    line-height: 16px;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    cursor: pointer;
+    padding: 1px 10px;
+}
+/* line 545, sass/index.scss */
+.footer .foot .copyright p {
+    height: 50px;
+    font-size: 12px;
+    color: #72757A;
+    line-height: 53px;
+    text-align: center;
+}
+/* line 551, sass/index.scss */
+.footer .foot .copyright p a {
+    color: #72757A;
+    text-decoration: none;
+}

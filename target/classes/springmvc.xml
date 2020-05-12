@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+        <!-- 配置包扫描器 -->
+        <context:component-scan base-package="com.wljx.controller"/>
+        
+        <!-- 配置注解驱动 -->
+        <mvc:annotation-driven/>
+        <!-- 配置视图解析器 -->
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        	<property name="prefix" value="/WEB-INF/jsp"></property>
+        	<property name="suffix" value=".jsp"></property>
+        </bean>
+        <!-- 静态资源映射 -->
+       <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+       <mvc:resources location="/image/" mapping="/image/**"></mvc:resources>
+       <mvc:resources location="/layui/" mapping="/layui/**"></mvc:resources>
+       <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+       <mvc:resources location="/json/" mapping="/json/**"></mvc:resources>
+       
+       <!-- 文件上传 -->
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        	 <property name="defaultEncoding" value="utf-8" />
+         	<property name="maxUploadSize" value="104857600" /><!-- 100M -->
+          	<!-- <property name="maxInMemorySize" value="40960" /> -->
+         </bean>
+
+       
+       <!-- 拦截器 -->
+        <mvc:interceptors>
+       		<mvc:interceptor>
+       			<mvc:mapping path="/**"/> <!--   拦截所有请求 -->
+       			<!-- 不拦截下面的资源或请求 -->
+       			<mvc:exclude-mapping path="/"/>
+       			<mvc:exclude-mapping path="/toLogin"/>
+       			<mvc:exclude-mapping path="/admin/**"/>
+       			<mvc:exclude-mapping path="/qiantai/login"/>
+       			<mvc:exclude-mapping path="/captcha/code"/>
+       			<mvc:exclude-mapping path="/upload/job"/>
+       			<mvc:exclude-mapping path="/**/*.css"/>
+       			<mvc:exclude-mapping path="/**/*.js"/>
+       			<mvc:exclude-mapping path="/**/*.jpg"/>
+       			<mvc:exclude-mapping path="/**/*.gif"/>
+       			<mvc:exclude-mapping path="/**/*.jpeg"/>
+       			<mvc:exclude-mapping path="/**/*.json"/>
+       			<mvc:exclude-mapping path="/**/*.png"/>
+       			<mvc:exclude-mapping path="/**/fonts/*"/>
+       			<mvc:exclude-mapping path="/**/font/*"/>
+       			<bean class="com.wljx.utils.LoginInterceptor"></bean>
+       		</mvc:interceptor>
+       </mvc:interceptors> 
+</beans>
