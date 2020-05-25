@@ -4,9 +4,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>后台管理欢迎界面</title>
 </head>
 <body>
-${admin.name }，欢迎您!
+${admin.name}，欢迎您!
 </body>
 </html>

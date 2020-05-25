@@ -1314,7 +1314,7 @@
         this.page = this.get(pageName, {});
     };
 
-    /* Save page data */
+    /* Save util data */
     Store.prototype.pageSave = function() {
         if($.isEmptyObject(this.page)) {
             this.remove(pageName);
@@ -1333,7 +1333,7 @@
         }
     };
 
-    /* Remove page data item */
+    /* Remove util data item */
     Store.prototype.pageRemove = function(key) {
         if(typeof this.page[key] != 'undefined') {
             this.page[key] = null;
@@ -1341,19 +1341,19 @@
         }
     };
 
-    /* Clear page data */
+    /* Clear util data */
     Store.prototype.pageClear = function() {
         this.page = {};
         this.pageSave();
     };
 
-    /* Get page data */
+    /* Get util data */
     Store.prototype.pageGet = function(key, defaultValue) {
         var val = this.page[key];
         return(defaultValue !== undefined && (val === null || val === undefined)) ? defaultValue : val;
     };
 
-    /* Set page data */
+    /* Set util data */
     Store.prototype.pageSet = function(objOrKey, val) {
         if($.isPlainObject(objOrKey)) {
             $.extend(true, this.page, objOrKey);
@@ -2461,7 +2461,7 @@
                 $(this).data(NAME).close(callback, redirect);
             });
         } else if(!$('body').hasClass('modal-open') && !$('.modal.in').length) {
-            // check if current page is as modal iframe
+            // check if current util is as modal iframe
             if ($('body').hasClass('body-modal')) {
                 window.parent.$.zui.closeModal(originModal, callback, redirect);
             }

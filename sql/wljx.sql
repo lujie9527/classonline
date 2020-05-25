@@ -1,8 +1,9 @@
 /*
 SQLyog Ultimate - MySQL GUI v8.2 
-MySQL - 5.7.24 : Database - wljx
+MySQL - 5.7.24 : Database - classonline
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 

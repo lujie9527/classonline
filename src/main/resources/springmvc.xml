@@ -13,13 +13,15 @@
 
 
         <!-- 配置包扫描器 -->
-        <context:component-scan base-package="com.wljx.controller"/>
+        <context:component-scan base-package="com.classonline.controller"/>
         
         <!-- 配置注解驱动 -->
         <mvc:annotation-driven/>
         <!-- 配置视图解析器 -->
+	<!--    这里配置了一个 Spring MVC 内置的一个视图解析器，该解析器是遵循着一种约定：
+        会在视图名上添加前缀和后缀，进而确定一个 Web 应用中视图资源的物理路径-->
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        	<property name="prefix" value="/WEB-INF/jsp"></property>
+        	<property name="prefix" value="/WEB-INF/jsp/"></property>
         	<property name="suffix" value=".jsp"></property>
         </bean>
         <!-- 静态资源映射 -->
@@ -32,9 +34,10 @@
        <!-- 文件上传 -->
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         	 <property name="defaultEncoding" value="utf-8" />
-         	<property name="maxUploadSize" value="104857600" /><!-- 100M -->
-          	<!-- <property name="maxInMemorySize" value="40960" /> -->
-         </bean>
+         	<property name="maxUploadSize" value="104857600" /><!-- 100M 此处单位为字节-->
+          	 <property name="maxInMemorySize" value="40960" />
+<!--		 maxInMemorySize 是 阈值，低于此值，只保留在内存里，超过此阈值，生成硬盘上的临时文件。-->
+	   </bean>
 
        
        <!-- 拦截器 -->
@@ -57,7 +60,7 @@
        			<mvc:exclude-mapping path="/**/*.png"/>
        			<mvc:exclude-mapping path="/**/fonts/*"/>
        			<mvc:exclude-mapping path="/**/font/*"/>
-       			<bean class="com.wljx.utils.LoginInterceptor"></bean>
+       			<bean class="com.classonline.utils.LoginInterceptor"></bean>
        		</mvc:interceptor>
        </mvc:interceptors> 
 </beans>

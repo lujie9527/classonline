@@ -1,28 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>网络教学系统后台管理</title>
-<script type="text/javascript" src="${pageContext.request.contextPath }/easyui/jquery-1.8.3.js"></script>
-<link id="easyuiTheme" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/easyui/css/default.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/easyui/jquery.easyui.min.js"></script>
-<!-- 导入ztree类库 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/ztree/zTreeStyle.css"
-	type="text/css" />
-<script
-	src="${pageContext.request.contextPath }/ztree/jquery.ztree.all-3.5.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath }/easyui/easyui-lang-zh_CN.js"
-	type="text/javascript"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/easyui/jquery-1.8.3.js"></script>
+	<link id="easyuiTheme" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/css/default.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath }/easyui/jquery.easyui.min.js"></script>
+	<!-- 导入ztree类库 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/ztree/zTreeStyle.css" type="text/css" />
+	<script src="${pageContext.request.contextPath }/ztree/jquery.ztree.all-3.5.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/easyui/easyui-lang-zh_CN.js" type="text/javascript"></script>
 <script type="text/javascript">
 	// 初始化ztree菜单
 	$(function() {
@@ -41,18 +31,18 @@
 		};
 		
 		// 基本功能菜单加载
-		/* $.ajax({
-			url : '${pageContext.request.contextPath}/easyui/json/menu.json',
-			type : 'POST',
-			dataType : 'text',
-			success : function(data) {
-				var zNodes = eval("(" + data + ")");
-				$.fn.zTree.init($("#treeMenu"), setting, zNodes);
-			},
-			error : function(msg) {
-				alert('菜单加载异常!');
-			}
-		}); */
+		<%-- $.ajax({--%>
+		<%--	url : '${pageContext.request.contextPath}/easyui/json/menu.json',--%>
+		<%--	type : 'POST',--%>
+		<%--	dataType : 'text',--%>
+		<%--	success : function(data) {--%>
+		<%--		var zNodes = eval("(" + data + ")");--%>
+		<%--		$.fn.zTree.init($("#treeMenu"), setting, zNodes);--%>
+		<%--	},--%>
+		<%--	error : function(msg) {--%>
+		<%--		alert('菜单加载异常!');--%>
+		<%--	}--%>
+		<%--});--%>
 		zNodes = [
 			{"id":"11","pId":"0","name":"学生信息管理","page":"${pageContext.request.contextPath}/admin/student/list"},
 			{ "id":"12","pId":"0","name":"老师信息管理", "page":"${pageContext.request.contextPath}/admin/teacher/list"},
@@ -60,12 +50,12 @@
 			{ "id":"14","pId":"0","name":"班级信息管理", "page":"${pageContext.request.contextPath}/admin/banji/list"},
 			{ "id":"15","pId":"0","name":"教学视频管理", "page":"${pageContext.request.contextPath}/admin/video/list"},
 			{ "id":"16","pId":"0","name":"公告管理", "page":"${pageContext.request.contextPath}/admin/notice/list"},
-			{ "id":"17","pId":"0","name":"友情链接管理", "page":"${pageContext.request.contextPath}/admin/link/list"},
-			{ "id":"18","pId":"0","name":"留言解惑管理", "page":"${pageContext.request.contextPath}/admin/liuyan/list"},
-			{ "id":"19","pId":"0","name":"资料管理", "page":"${pageContext.request.contextPath}/admin/doc/list"},
-			{ "id":"20","pId":"0","name":"作业管理", "page":"${pageContext.request.contextPath}/admin/job/list"}
-		
-		
+			<%--{ "id":"17","pId":"0","name":"友情链接管理", "page":"${pageContext.request.contextPath}/admin/link/list"},--%>
+			{ "id":"17","pId":"0","name":"留言解惑管理", "page":"${pageContext.request.contextPath}/admin/liuyan/list"},
+			{ "id":"18","pId":"0","name":"资料管理", "page":"${pageContext.request.contextPath}/admin/doc/list"},
+			{ "id":"19","pId":"0","name":"作业管理", "page":"${pageContext.request.contextPath}/admin/job/list"},
+			<%--{"id":"21","pId":"0","name":"在线考试试题管理","page":"${pageContext.request.contextPath}/admin/subject/list"}--%>
+
 	];
 		
 	$.fn.zTree.init($("#treeMenu"), setting, zNodes);
@@ -164,15 +154,16 @@
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
-		style="height:90px;padding:10px;background:url('${pageContext.request.contextPath }/easyui/images/header_bg.jpg') no-repeat right;">
+		style="height:90px;padding:10px;
+				background:url('${pageContext.request.contextPath }/easyui/images/logo_hearder.jpg') no-repeat right;">
 		<div>
-			<img src="${pageContext.request.contextPath }/easyui/images/gy.png" style="width: 150px;height: 80px"
+			<img src="${pageContext.request.contextPath }/easyui/images/loginHouTai.png" style="width: 150px;height: 80px"
 				border="0">
 		</div>
 	
 		<div style="position: absolute; right: 5px; bottom: 10px; ">
 			<a href="javascript:void(0);" class="easyui-menubutton"
-				data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-help'">控制面板</a>
+				data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-man'">退出与设置</a>
 		</div>
 		
 		<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
@@ -194,19 +185,20 @@
 			<div title="消息中心" id="subWarp"
 				style="width:100%;height:100%;overflow:hidden">
 				<iframe src="${pageContext.request.contextPath }/admin/tip"
-					style="width:100%;height:100%;border:0;"></iframe>
-				<%--				这里显示公告栏、预警信息和代办事宜--%>
+					style="width:100%;height:100%;border:0;">
+
+				</iframe>
 			</div>
 		</div>
 	</div>
 	<div data-options="region:'south',border:false"
-		style="height:50px;padding:10px;background:url('${pageContext.request.contextPath}/easyui/images/header_bg.png') no-repeat right;">
+		style="height:50px;padding:10px;background:url('${pageContext.request.contextPath}/easyui/images/logo_foot.jpg') no-repeat right;">
 		<table style="width: 100%;">
 			<tbody>
 				<tr>
 					<td style="width: 300px;">
-						<div style="color: #999; font-size: 8pt;">
-							网络教学系统 &nbsp;- &nbsp;后台管理 | Powered by <a href="http://blog.csdn.net/com_it">网站</a>
+						<div style="color: #999; font-size: 8pt; text-align: center">
+							<p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
 						</div>
 					</td>
 				</tr>

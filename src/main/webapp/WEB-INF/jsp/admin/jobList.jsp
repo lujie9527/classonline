@@ -157,7 +157,7 @@
 		// 先将body隐藏，再显示，不会出现页面刷新效果
 		$("body").css({visibility:"visible"});
 		
-		// 员工数据表格
+		// 作业数据表格
 		$('#grid').datagrid( {
 			iconCls : 'icon-forward',
 			fit : true,
@@ -173,9 +173,9 @@
 			/* onDblClickRow : doDblClickRow */
 		});
 		
-		// 添加员工窗口
+		// 添加作业信息
 		$('#addStaffWindow').window({
-            title: '添加员工信息',
+            title: '添加作业信息',
             width: 400,
             modal: true,
             shadow: true,

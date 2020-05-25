@@ -1,35 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>个人中心</title>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
-      <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script> 
-      <script type="text/javascript">
-      	$(function(){
-			$("#loginOut").click(function(){
-				if(window.confirm("您确定要退出吗?")){
-				window.location.href="${pageContext.request.contextPath}/qiantai/loginOut";
-				}
-			})
-	});
-      </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#loginOut").click(function () {
+                if (window.confirm("您确定要退出吗?")) {
+                    window.location.href = "${pageContext.request.contextPath}/qiantai/loginOut";
+                }
+            })
+        });
+    </script>
 </head>
 <body class="layui-layout-body">
+
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">网络教学系统---个人中心</div>
+        <div class="layui-logo">个人中心</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 欢迎您，${user.name }
             </li>
-            <li class="layui-nav-item"><a href="javascript:void(0);" id="loginOut">安全退出</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:void(0);" id="loginOut">安全退出</a>
+            </li>
         </ul>
     </div>
 
@@ -38,17 +41,20 @@
             <!-- 左侧垂直导航区域-->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
-					<a href="javascript:;" data-id="1" data-title="个人信息" data-url="${pageContext.request.contextPath }/gerenzhongxin/gerenxinxi"
-                               class="site-demo-active" data-type="tabAdd">个人信息</a>
+                    <a href="javascript:;" data-id="1" data-title="个人信息"
+                       data-url="${pageContext.request.contextPath }/gerenzhongxin/gerenxinxi"
+                       class="site-demo-active" data-type="tabAdd">个人信息</a>
                 </li>
-				<li class="layui-nav-item">
-					<a href="javascript:;" data-id="2" data-title="我的作业" data-url="${pageContext.request.contextPath }/gerenzhongxin/wodezuoye"
-                               class="site-demo-active" data-type="tabAdd">我的作业</a>
-				</li>
-				<li class="layui-nav-item">
-					<a href="javascript:;" data-id="3" data-title="已下载资料" data-url="${pageContext.request.contextPath }/gerenzhongxin/yixiazai"
-                               class="site-demo-active" data-type="tabAdd">已下载资料</a>
-				</li>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a href="javascript:;" data-id="2" data-title="我的作业"--%>
+<%--                       data-url="${pageContext.request.contextPath }/gerenzhongxin/stuwodezuoye"--%>
+<%--                       class="site-demo-active" data-type="tabAdd">我的作业</a>--%>
+<%--                </li>--%>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a href="javascript:;" data-id="3" data-title="已下载资料"--%>
+<%--                       data-url="${pageContext.request.contextPath }/gerenzhongxin/yixiazai"--%>
+<%--                       class="site-demo-active" data-type="tabAdd">已下载资料</a>--%>
+<%--                </li>--%>
             </ul>
         </div>
     </div>
@@ -59,15 +65,17 @@
         <div class="layui-tab-content"></div>
     </div>
 
-<div class="layui-footer" style="text-align:center;">
+    <div class="layui-footer" style="text-align:center;">
     <!-- 底部固定区域 -->
-    网络教学系统 --- 个人中心
+    <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
 </div>
+
 </div>
 <script src="${pageContext.request.contextPath }/layui/layui.js"></script>
+
 <script>
-		
-		    layui.use(['element', 'layer', 'jquery'], function () {
+
+    layui.use(['element', 'layer', 'jquery'], function () {
         var element = layui.element;
         // var layer = layui.layer;
         var $ = layui.$;
@@ -116,13 +124,14 @@
                 element.tabDelete("demo", id);//删除
             }
         };
+
         function FrameWH() {
             var h = $(window).height();
-            $("iframe").css("height",h+"px");
+            $("iframe").css("height", h + "px");
         }
     });
-	
-		
+
+
 </script>
 </body>
 </html>

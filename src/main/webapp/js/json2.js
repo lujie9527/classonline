@@ -1,9 +1,6 @@
 /*
     json2.js
-    2007-11-06
-
     Public Domain
-
     See http://www.JSON.org/js.html
 
     This file creates a global JSON object containing two methods:

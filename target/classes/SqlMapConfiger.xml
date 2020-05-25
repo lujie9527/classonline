@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 别名定义 -->
 	<typeAliases>
 		<!-- 批量别名定义 -->
-		<package name="com.wljx.bean"/>
+		<package name="com.classonline.bean"/>
 	</typeAliases>
 	<plugins>
 	<!-- mysql分页插件 -->

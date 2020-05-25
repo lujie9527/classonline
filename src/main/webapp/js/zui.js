@@ -380,9 +380,9 @@
     var NAME = 'zui.pager'; // model name
 
     var DEFAULT_PAGER = {
-        page: 1,        // current page index
+        page: 1,        // current util index
         recTotal: 0,    // records total count
-        recPerPage: 10, // records count per page
+        recPerPage: 10, // records count per util
     };
 
     var LANG = {
@@ -393,12 +393,12 @@
             first: '第一页',
             last: '最后一页',
             goto: '跳转',
-            pageOf: '第 <strong>{page}</strong> 页',
+            pageOf: '第 <strong>{util}</strong> 页',
             totalPage: '共 <strong>{totalPage}</strong> 页',
             totalCount: '共 <strong>{recTotal}</strong> 项',
             pageSize: '每页 <strong>{recPerPage}</strong> 项',
             itemsRange: '第 <strong>{start}</strong> ~ <strong>{end}</strong> 项',
-            pageOfTotal: '第 <strong>{page}</strong>/<strong>{totalPage}</strong> 页'
+            pageOfTotal: '第 <strong>{util}</strong>/<strong>{totalPage}</strong> 页'
         },
         zh_tw: {
             pageOfText: '第 {0} 頁',
@@ -407,12 +407,12 @@
             first: '第一頁',
             last: '最後一頁',
             goto: '跳轉',
-            pageOf: '第 <strong>{page}</strong> 頁',
+            pageOf: '第 <strong>{util}</strong> 頁',
             totalPage: '共 <strong>{totalPage}</strong> 頁',
             totalCount: '共 <strong>{recTotal}</strong> 項',
             pageSize: '每頁 <strong>{recPerPage}</strong> 項',
             itemsRange: '第 <strong>{start}</strong> ~ <strong>{end}</strong> 項',
-            pageOfTotal: '第 <strong>{page}</strong>/<strong>{totalPage}</strong> 頁'
+            pageOfTotal: '第 <strong>{util}</strong>/<strong>{totalPage}</strong> 頁'
         },
         en: {
             pageOfText: 'Page {0}',
@@ -421,12 +421,12 @@
             first: 'First',
             last: 'Last',
             goto: 'Goto',
-            pageOf: 'Page <strong>{page}</strong>',
+            pageOf: 'Page <strong>{util}</strong>',
             totalPage: '<strong>{totalPage}</strong> pages',
             totalCount: '<strong>{recTotal}</strong> in total',
-            pageSize: '<strong>{recPerPage}</strong> per page',
+            pageSize: '<strong>{recPerPage}</strong> per util',
             itemsRange: 'From <strong>{start}</strong> to <strong>{end}</strong>',
-            pageOfTotal: 'Page <strong>{page}</strong> of <strong>{totalPage}</strong>'
+            pageOfTotal: 'Page <strong>{util}</strong> of <strong>{totalPage}</strong>'
         }
     };
 
@@ -443,7 +443,7 @@
 
         that.state = {};
 
-        that.set(options.page, options.recTotal, options.recPerPage, true);
+        that.set(com.classonline.util, options.recTotal, options.recPerPage, true);
 
         that.$.on('click', '.pager-goto-btn', function() {
             var $goto = $(this).closest('.pager-goto');
@@ -469,7 +469,7 @@
         if (typeof page === 'object' && page !== null) {
             recPerPage = page.recPerPage;
             recTotal = page.recTotal;
-            page = page.page;
+            page = com.classonline.util;
         }
         var state = that.state;
         if (!state) {
@@ -487,7 +487,7 @@
         }
         state.totalPage = (state.recTotal && state.recPerPage) ? (Math.ceil(state.recTotal / state.recPerPage)) : 1;
         state.page = Math.max(0, Math.min(state.page, state.totalPage));
-        // stateRecCount is items count in current page
+        // stateRecCount is items count in current util
         state.pageRecCount = state.recTotal;
         if (state.page && state.recTotal) {
             if (state.page < state.totalPage) {
@@ -502,7 +502,7 @@
         state.prev  = state.page > 1 ? (state.page - 1) : 0;
         state.next  = state.page < state.totalPage ? (state.page + 1) : 0;
         that.state  = state;
-        if (!notTiggerChange && (oldState.page !== state.page || oldState.recTotal !== state.recTotal || oldState.recPerPage !== state.recPerPage)) {
+        if (!notTiggerChange && (com.classonline.util !== state.page || oldState.recTotal !== state.recTotal || oldState.recPerPage !== state.recPerPage)) {
             that.$.callComEvent(that, 'onPageChange', [state, oldState]);
         }
         return that.render();
@@ -513,9 +513,9 @@
         if (text === undefined) {
             text = page;
         }
-        var $ele = $('<a title="' + that.lang.pageOfText.format(page) + '" class="pager-item" data-page="' + page + '"/>').attr('href', page ? that.createLink(page, that.state) : '###').html(text);
+        var $ele = $('<a title="' + that.lang.pageOfText.format(page) + '" class="pager-item" data-util="' + page + '"/>').attr('href', page ? that.createLink(page, that.state) : '###').html(text);
         if (!asAElement) {
-            $ele = $('<li />').append($ele).toggleClass('active', page === that.state.page).toggleClass('disabled', !page || page === that.state.page);
+            $ele = $('<li />').append($ele).toggleClass('active', page === com.classonline.util).toggleClass('disabled', !page || page === com.classonline.util);
         }
         return $ele;
     };
@@ -525,7 +525,7 @@
         var $nav = that.$;
         var pager = that.state;
         var totalPage = pager.totalPage;
-        var page = pager.page;
+        var page = com.classonline.util;
         var appendItem = function(p, to) {
             if(p === false) {
                 $nav.append(that.createLinkItem(0, to || that.options.navEllipsisItem));
@@ -565,7 +565,7 @@
     Pager.prototype.createGoto = function() {
         var that = this;
         var pager = this.state;
-        var $goto = $('<div class="input-group pager-goto" style="width: ' + (35 + (pager.page + '').length * 9 + 25 + that.lang.goto.length*12) + 'px"><input value="' + pager.page + '" type="number" min="1" max="' + pager.totalPage + '" placeholder="' + pager.page + '" class="form-control pager-goto-input"><span class="input-group-btn"><button class="btn pager-goto-btn" type="button">' + that.lang.goto + '</button></span></div>');
+        var $goto = $('<div class="input-group pager-goto" style="width: ' + (35 + (com.classonline.util + '').length * 9 + 25 + that.lang.goto.length*12) + 'px"><input value="' + com.classonline.util + '" type="number" min="1" max="' + pager.totalPage + '" placeholder="' + com.classonline.util + '" class="form-control pager-goto-input"><span class="input-group-btn"><button class="btn pager-goto-btn" type="button">' + that.lang.goto + '</button></span></div>');
         return $goto;
     };
 
@@ -639,7 +639,7 @@
 
     Pager.prototype.createLink = function(page, pager) {
         if (page === undefined) {
-            page = this.state.page;
+            page = com.classonline.util;
         }
         if (pager === undefined) {
             pager = this.state;
@@ -650,7 +650,7 @@
         } else if ($.isFunction(linkCreator)) {
             return linkCreator(page, pager);
         }
-        return '#page=' + page;
+        return '#util=' + page;
     };
 
     Pager.prototype.render = function(elements) {
@@ -682,7 +682,7 @@
             }
         }
 
-        // Fix page item border
+        // Fix util item border
         var $lastItem = null;
         that.$.children('li').each(function() {
             var $li = $(this);
@@ -2102,7 +2102,7 @@
         this.page = this.get(pageName, {});
     };
 
-    /* Save page data */
+    /* Save util data */
     Store.prototype.pageSave = function() {
         if($.isEmptyObject(this.page)) {
             this.remove(pageName);
@@ -2121,7 +2121,7 @@
         }
     };
 
-    /* Remove page data item */
+    /* Remove util data item */
     Store.prototype.pageRemove = function(key) {
         if(typeof this.page[key] != 'undefined') {
             this.page[key] = null;
@@ -2129,19 +2129,19 @@
         }
     };
 
-    /* Clear page data */
+    /* Clear util data */
     Store.prototype.pageClear = function() {
         this.page = {};
         this.pageSave();
     };
 
-    /* Get page data */
+    /* Get util data */
     Store.prototype.pageGet = function(key, defaultValue) {
         var val = this.page[key];
         return(defaultValue !== undefined && (val === null || val === undefined)) ? defaultValue : val;
     };
 
-    /* Set page data */
+    /* Set util data */
     Store.prototype.pageSet = function(objOrKey, val) {
         if($.isPlainObject(objOrKey)) {
             $.extend(true, this.page, objOrKey);
@@ -3790,7 +3790,7 @@
                 $(this).data(NAME).close(callback, redirect);
             });
         } else if(!$('body').hasClass('modal-open') && !$('.modal.in').length) {
-            // check if current page is as modal iframe
+            // check if current util is as modal iframe
             if ($('body').hasClass('body-modal')) {
                 window.parent.$.zui.closeModal(originModal, callback, redirect);
             }

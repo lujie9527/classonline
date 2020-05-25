@@ -7,22 +7,13 @@
 <title>学生信息管理</title>
 <script type="text/javascript" src="${pageContext.request.contextPath }/easyui/jquery-1.8.3.js"></script>
 <link id="easyuiTheme" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/easyui/css/default.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/easyui/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/easyui/css/default.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/easyui/jquery.easyui.min.js"></script>
 <!-- 导入ztree类库 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/ztree/zTreeStyle.css"
-	type="text/css" />
-<script
-	src="${pageContext.request.contextPath }/ztree/jquery.ztree.all-3.5.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath }/easyui/easyui-lang-zh_CN.js"
-	type="text/javascript"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/ztree/zTreeStyle.css" type="text/css" />
+<script src="${pageContext.request.contextPath }/ztree/jquery.ztree.all-3.5.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/easyui/easyui-lang-zh_CN.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function doAdd(){
 		//在添加之前把数据清空
@@ -178,7 +169,7 @@
 			onDblClickRow : doDblClickRow
 		});
 		
-		// 添加员工窗口
+		// 添加学生信息
 		$('#addStudentWindow').window({
             title: '添加学生信息',
             width: 490,

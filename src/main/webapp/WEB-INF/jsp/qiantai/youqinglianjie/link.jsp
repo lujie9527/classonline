@@ -13,7 +13,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script> 
    
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css" /> 
-  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script> 
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
  
     <style>
   	.copyright p{
@@ -64,11 +64,12 @@
  		<c:forEach items="${links }" var="link">
     	<li class="list-inline-item" style="margin:1rem;">
  	 		<div class="card" style="width:20rem;">
-   				 <a href="${link.url }" title="${link.name }" target="_blank"><img class="card-img-top" src="${pageContext.request.contextPath }/upload/${link.imgUrl}" alt="${link.name }" style="width:100%; height:100%;"></a>
+   				 <a href="${link.url }" title="${link.name }" target="_blank">
+                     <img class="card-img-top" src="${pageContext.request.contextPath }/upload/${link.imgUrl}" alt="${link.name }" style="width:100%; height:100%;">
+                 </a>
   			</div> 
         </li>  
         </c:forEach>
-       
     </ul>   
 </div>
   
@@ -79,8 +80,8 @@
 <footer class="footer navbar-fixed-bottom " style="background:#2A2D34">
     <div class="container">
     	<div class="copyright">
-                        <p ><a href="http://www.gdupt.edu.cn" target="_blank"> 广东石油化工学院</a> 版权所有 2019 （请使用1280*1024分辨率，IE8或更高版本浏览器访问本系统）</p>
-                </div>
+            <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
+        </div>
     </div>
 </footer>
   </body>
