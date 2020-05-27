@@ -51,6 +51,7 @@ public class IndexController {
 		return "/qiantai/login";
 	}
 
+
 	@RequestMapping("/loginOut")
 	public String LoginOut(){
 		return "/qiantai/index";

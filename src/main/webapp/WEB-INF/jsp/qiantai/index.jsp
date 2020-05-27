@@ -76,6 +76,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
         </li>
+        <c:if test="${isStu!=1}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
+            </li>
+        </c:if>
     </ul>
 
     <c:if test="${user==null}">
@@ -92,6 +97,7 @@
             </button>
         </ul>
     </c:if>
+
 </nav>
 
 <!--轮播图 -->

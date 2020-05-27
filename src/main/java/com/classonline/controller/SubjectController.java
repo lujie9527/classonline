@@ -2,13 +2,17 @@ package com.classonline.controller;
 
 import com.classonline.bean.Student;
 import com.classonline.bean.Subject;
+import com.classonline.bean.Teacher;
 import com.classonline.mapper.StudentMapper;
 import com.classonline.service.StudentService;
 import com.classonline.service.SubjectService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,15 +40,7 @@ public class SubjectController {
 
     @RequestMapping("/onlinehw")
     public String onlineHomework(HttpServletRequest request){
-//        Object user = request.getSession().getAttribute("user");
-//
-//        if(user instanceof Student){
-//            Student stu = (Student)user;
-//            return "/qiantai/subjectTest/subTestindex";
-//        }else{
-//            Teacher tea = (Teacher) user;
-//            return "/qiantai/subjectTest/subjectManage";
-//        }
+
         HttpSession session = request.getSession();
 
         Integer flag=(Integer) session.getAttribute("isStu");
@@ -57,20 +53,19 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subresult",method = RequestMethod.POST)
-    @ResponseBody
-    public ModelAndView subResult(HttpServletRequest request, @RequestBody ArrayList<String> subAnswers){
+//    @ResponseBody
+    public void subResult(HttpServletRequest request, @RequestBody ArrayList<String> subAnswers){
 
         Student student = (Student) request.getSession().getAttribute("user");
-        subjectService.accountResult(student.getId(), subAnswers);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("qiantai/subjectTest/examResult");
-        return modelAndView;
+        int stuGrade =  subjectService.accountResult(student.getId(), subAnswers);
     }
 
 
     @RequestMapping("/addSub")
-    public String addSubjectByTeacher(Subject subject){
-        subjectService.addSubject(subject);
+    public String addSubjectByTeacher(String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,String subjectOptionD,
+                                      String subjectAnswer,String subjectParse){
+        subjectService.addSubject(subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+                subjectAnswer,subjectParse);
         return "200";
     }
 
@@ -83,6 +78,35 @@ public class SubjectController {
         modelAndView.addObject("subjectList",listSub);
         modelAndView.setViewName("/qiantai/subjectTest/subTestindex");
         return modelAndView;
+    }
+
+
+    @RequestMapping("/allSub")
+    public String getAllSubject(HttpServletRequest request,
+                                Model model){
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof Teacher){
+            Teacher teacher = (Teacher)user;
+//            PageHelper.startPage(pageNum,10);
+            List<Subject> list = subjectService.getSubjects();
+//            PageInfo<Subject> pageInfo = new PageInfo<Subject>(list,10);
+            model.addAttribute("manageSubList",list);
+            System.out.println("麻烦你输出"+list);
+
+        }
+        return "qiantai/subjectTest/subjectManage";
+    }
+
+
+    @RequestMapping(value = "/findSub",produces = "application/json;charset=UTF-8")
+
+    public String findSubjectByTitle(String subjectTitle,HttpServletRequest request){
+       List<Subject> subject = subjectService.findSubjectByTitle(subjectTitle);
+
+        request.setAttribute("findSubject",subject);
+        System.out.println("运行到findSub了吗subject"+subject);
+        System.out.println("运行到findSub了吗subjectitle"+subjectTitle);
+        return "qiantai/subjectTest/subjectQuery";
     }
 
 

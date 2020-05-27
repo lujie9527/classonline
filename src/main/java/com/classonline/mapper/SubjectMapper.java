@@ -9,12 +9,13 @@ import java.util.List;
 
 public interface SubjectMapper {
 
-    @Insert("insert into subject (subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,subjectAnswer,subjectParse)"
-    +"values(#{subjectId},#{subjectTitle},#{subjectOptionA},#{subjectOptionB},#{subjectOptionC},#{subjectOptionD},#{subjectAnswer},#{subjectParse})")
+    @Insert("insert into subject (subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,subjectAnswer,subjectParse) " +
+            "values (#{subjectTitle},#{subjectOptionA},#{subjectOptionB},#{subjectOptionC},#{subjectOptionD},#{subjectAnswer},#{subjectParse})")
 
-    void addSubject(@Param("subjectId")int subjectId,@Param("subjectTitle") String subjectTitle, @Param("subjectOptionA") String subjectOptionA, @Param("subjectOptionB")
-            String subjectOptionB,@Param("subjectOptionC")String subjectOptionC,@Param("subjectOptionD")String subjectOptionD,
-                     @Param("subjectAnswer") String subjectAnswer,@Param("subjectParse")String subjectParse);
+    void addSubject(@Param("subjectTitle") String subjectTitle, @Param("subjectOptionA") String subjectOptionA,
+                    @Param("subjectOptionB") String subjectOptionB,@Param("subjectOptionC") String subjectOptionC,
+                    @Param("subjectOptionD") String subjectOptionD, @Param("subjectAnswer") String subjectAnswer,
+                    @Param("subjectParse") String subjectParse);
 
     //学生提交在线练习插入学生成绩
     @Insert("insert into student （id,grade） value (#{id},#{grade})")
@@ -22,17 +23,10 @@ public interface SubjectMapper {
     void subjectUpload(@Param("id")int id,@Param("grade")String grade);
 
 
-    @Select("select * from subject where subjectId=#{subjectId}")
-
-    @Results({
-            @Result(column = "subjectId",property = "teacher",one = @One(select = "com.classonline.mapper.StudentMapper.getStuById"))
-    })
-     List<Subject> findSubjectById(int subjectId);
-
 
     @Select("select * from subject where subjectTitle=#{SubjectTitle}")
 
-    Subject findSubjectByTitle(String subjectTitle);//根据试题标题查找试题
+   List<Subject> findSubjectByTitle(String subjectTitle);//根据试题标题查找试题
 
 
 
@@ -43,11 +37,18 @@ public interface SubjectMapper {
 
 
 //    int findSubjecCount();//查询试题总量
+//更新试题
+//    @UpdateProvider(type = SqlProvider.class,method = "getSqlForUpdateSubject")
+//    void updateSubject(String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,
+//                       String subjectOptionD,String subjectAnswer,String subjectParse);
 
-    @UpdateProvider(type = SqlProvider.class,method = "getSqlForUpdateSubject")
-    void updateSubject(int subjectId,String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,
-                       String subjectOptionD,String subjectAnswer,String subjectParse);//更新试题
-
+    @Update("update subject set subjectTitle=#{subjectTitle},subjectOptionA=#{subjectOptionA},subjectOptionB=#{subjectOptionB}," +
+            "subjectOptionC=#{subjectOptionC},subjectOptionD=#{subjectOptionD},subjectAnswer=#{subjectAnswer}," +
+            "subjectParse=#{subjectParse} where subjectId=#{subjectId}")
+    void updateSubject(@Param("subjectId")Integer subjectId,@Param("subjectTitle") String subjectTitle,@Param("subjectOptionA") String subjectOptionA,
+                       @Param("subjectOptionB") String subjectOptionB,@Param("subjectOptionC") String subjectOptionC,
+                       @Param("subjectOptionD") String subjectOptionD,@Param("subjectAnswer") String subjectAnswer,
+                       @Param("subjectParse") String subjectParse);
 
     @Select("select * from subject")
     List<Subject> getSubjects();

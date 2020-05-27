@@ -21,50 +21,33 @@ public class SubjectServiceImpl implements SubjectService {
     private StudentMapper studentMapper;
 
 
-//    public List<Subject> getSubjectTest(Integer subjectId, String subjectTitle, String subjectOptionA,
-//                                        String subjectOptionB, String subjectOptionC, String subjectOptionD,
-//                                        String subSubjectAnswer,String SubjectParse){
-//
-//        List<Subject> sub = subjectMapper.getAllSubject(subjectId);
-//
-//        List<Subject> subt = new ArrayList<>();
-//
-//        for(Subject subject : sub){
-//
-//            Subject sb = null;
-//            sb.setSubjectTitle(subject.getSubjectTitle());
-//            sb.setSubjectOptionA(subject.getSubjectOptionA());
-//            sb.setSubjectOptionB(subject.getSubjectOptionB());
-//            sb.setSubjectOptionC(subject.getSubjectOptionC());
-//            sb.setSubjectOptionD(subject.getSubjectOptionD());
-//            sb.setSubjectAnswer(subject.getSubjectAnswer());
-//            sb.setSubjectParse(subject.getSubjectParse());
-//
-//            subt.add(sb);
-//        }
-//        return subt;
-//    }
     @Transactional
     //通常情况下我们在需要对一个service方法添加事务时，加上这个注解，如果发生unchecked exception，就会发生rollback
     @Override
-    public void addSubject(Subject subject){
+    public void addSubject(String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,String subjectOptionD,
+                           String subjectAnswer,String subjectParse){
 
-        subjectMapper.addSubject(subject.getSubjectId(),subject.getSubjectTitle(),subject.getSubjectOptionA(),
-                subject.getSubjectOptionB(),subject.getSubjectOptionC(),subject.getSubjectOptionD(),subject.getSubjectAnswer(),
-                subject.getSubjectParse());
+        subjectMapper.addSubject(subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+                subjectAnswer,subjectParse);
 
 
     }
+    @Transactional
     @Override
-    public List<Subject> findSubjectById(Integer subjectId){
+    public void updateSubject(Integer subjectId,String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,String subjectOptionD,
+                              String subjectAnswer,String subjectParse){
 
-        return subjectMapper.findSubjectById(subjectId);
+        subjectMapper.updateSubject(subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+                subjectAnswer,subjectParse);
     }
 
-    @Override
-    public Subject findSubjectByTitle(String subjectTitle){
 
-        return subjectMapper.findSubjectByTitle(subjectTitle);
+    @Override
+    public List<Subject> findSubjectByTitle(String subjectTitle){
+
+        List<Subject> subject = subjectMapper.findSubjectByTitle(subjectTitle);
+
+        return subject;
     }
 
     @Override
@@ -82,9 +65,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void accountResult(String stuId, ArrayList<String> studentAnswers){
-        System.out.println("这里是accountResult"+studentAnswers);
-        System.out.println("这里是学生ID"+stuId);
+    public int accountResult(String stuId, ArrayList<String> studentAnswers){
         int generalPoint = 0;
         for (int i = 0;i < 20;i++){
             String rightAnswer = subjectMapper.getSubAnswerById(i+1);
@@ -94,6 +75,7 @@ public class SubjectServiceImpl implements SubjectService {
             }
         }
         studentMapper.addGrade(generalPoint,stuId);
+        return generalPoint;
 
     }
 

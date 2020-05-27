@@ -186,62 +186,51 @@ public class SqlProvider {
 		
 	}
 
-
-	public String getSqlForUpdateSubject(int subjectId,String subjectTitle,String subjectOptionA,String subjectOptionB,
-										 String subjectOptionC, String subjectOptionD,String subjectAnswer,String subjectParse){
-
-		StringBuffer sb = new StringBuffer("update subject");
-		if(!StringUtils.isBlank(subjectTitle)){
-			sb.append("subjectTitle='"+subjectTitle+"'");
-			sb.append(",");
+	public String getSqlForUpdateSubject(Integer subjectId,String subjectTitle,String subjectOptionA,
+										 String subjectOptionB,String subjectOptionC,String subjectOptionD,
+										 String subjectAnswer,String subjectParse) {
+		StringBuffer sb=new StringBuffer("update subject");
+		if(!StringUtils.isBlank(subjectTitle)) {
+			sb.append(" subjectTitle='"+subjectTitle+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectOptionA)) {
+			sb.append(" subjectOptionA='"+subjectOptionA+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectOptionB)) {
+			sb.append(" subjectOptionB='"+subjectOptionB+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectOptionC)) {
+			sb.append(" subjectOptionC='"+subjectOptionC+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectOptionD)) {
+			sb.append(" subjectOptionD='"+subjectOptionD+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectAnswer)) {
+			sb.append(" subjectAnswer='"+subjectAnswer+"'");
+			sb.append(" , ");
+		}
+		if(!StringUtils.isBlank(subjectParse)) {
+			sb.append(" subjectParse='"+subjectParse+"'");
+			sb.append(" , ");
 		}
 
-		if(!StringUtils.isBlank(subjectOptionA)){
-			sb.append("subjectOptionA='"+subjectOptionA+"'");
-			sb.append(".");
-		}
 
-		if (!StringUtils.isBlank(subjectOptionB)){
-			sb.append("subjectOptionB='"+subjectOptionB+"'");
-			sb.append(",");
-		}
+		sb.append(" where subjectId='"+subjectId+"'");
 
-		if (!StringUtils.isBlank(subjectOptionC)){
-			sb.append("subjectOptionC='"+subjectOptionC+"'");
-			sb.append(",");
+		int index=sb.toString().indexOf("subject");
+		sb.insert(index+7," set ");
 
-		}if (!StringUtils.isBlank(subjectOptionD)){
-			sb.append("subjectOptionD='"+subjectOptionD+"'");
-			sb.append(",");
+		int lastIndex=sb.lastIndexOf(",");
+		sb.setCharAt(lastIndex, ' ');
 
-		}if (!StringUtils.isBlank(subjectAnswer)){
-			sb.append("subjectAnswer='"+subjectAnswer+"'");
-			sb.append(",");
-
-		}if (!StringUtils.isBlank(subjectParse)){
-			sb.append("subjectParse='"+subjectParse+"'");
-			sb.append(",");
-
-		}
-
-		sb.append("where subjectId="+subjectId);
-
-		int index = sb.toString().indexOf("subject");
-		sb.insert(index+8,"set");
-
-		int lastIndex = sb.lastIndexOf(",");
-		sb.setCharAt(lastIndex,' ');
 		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
-
-	public String getSqlForRandomSubject(int number){
-		StringBuffer sb = new StringBuffer("select * from subject");
-		if (number!=-1){
-			sb.append("order by rand() limit 0,20");
-		}
-		return sb.toString();
-	}
 
 }

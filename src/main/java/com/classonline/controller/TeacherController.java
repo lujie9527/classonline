@@ -25,4 +25,6 @@ public class TeacherController {
 		teacherService.updatePwd(teacher.getId(),MD5Utils.md5(password));
 		return "200";
 	}
+
+
 }

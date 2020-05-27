@@ -52,6 +52,11 @@
                            data-url="${pageContext.request.contextPath }/gerenzhongxin/teacher/video"
                            class="site-demo-active" data-type="tabAdd">上传教学视频</a>
                     </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-id="4" data-title="管理试题"
+                           data-url="${pageContext.request.contextPath }/qiantai/subjectTest/subjectManage"
+                           class="site-demo-active" data-type="tabAdd">管理试题</a>
+                    </li>
                 </ul>
             </div>
         </div>

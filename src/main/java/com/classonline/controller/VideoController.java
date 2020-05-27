@@ -26,7 +26,8 @@ public class VideoController {
 	private VideoService videoService;
 	
 	@RequestMapping("/all")
-	public String getAllVideos(HttpServletRequest request, @RequestParam(required=false,defaultValue="1")int pageNum, String keyword,Model model){
+	public String getAllVideos(HttpServletRequest request, @RequestParam(required=false,defaultValue="1")
+			int pageNum, String keyword,Model model){
 
 		Object user=request.getSession().getAttribute("user");
 		if(user instanceof Student){

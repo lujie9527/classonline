@@ -138,8 +138,10 @@
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/images/yc.gif" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/images/yx.gif" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/showAnswer.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/demo" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/images/logo_foot.jpg" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/images/logo_hearder.jpg" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/jquery.min.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/js/vblog.js" charset="GBK" />
   </component>
 </project>

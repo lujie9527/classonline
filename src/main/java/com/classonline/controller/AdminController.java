@@ -1,8 +1,12 @@
 package com.classonline.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.classonline.bean.*;
 import com.classonline.service.*;
@@ -315,7 +319,7 @@ public class AdminController {
 	//题目信息列表
 	@RequestMapping("/subject/list")
 	public String showListSubject(){
-		return "admin/subjectList";
+		return "/qiantai/subjectTest/subManageByTea";
 	}
 
 	@RequestMapping("/subject/list/json")
@@ -326,17 +330,43 @@ public class AdminController {
 
 	@RequestMapping("/subject/delete")
 	@ResponseBody
-	public String deleteSubject(@RequestParam(value = "ids[]") String [] ids){
+	public String deleteSubject(@RequestParam(value="ids[]") String [] ids){
 		subjectService.deleteSubject(ids);
 		return "200";
 	}
 
 	@RequestMapping("/subject/addSub")
-	public String addOrUpdateSubject(Subject subject){
+	public String addOrUpdateSubject(@RequestParam(value = "subjectId")Integer subjectId,
+									 @RequestParam(value="subjectTitle") String subjectTitle,
+									 @RequestParam(value="subjectOptionA") String subjectOptionA,
+									 @RequestParam(value="subjectOptionB") String subjectOptionB,
+									 @RequestParam(value="subjectOptionC") String subjectOptionC,
+									 @RequestParam(value="subjectOptionD") String subjectOptionD,
+									 @RequestParam(value="subjectAnswer") String subjectAnswer,
+									 @RequestParam(value="subjectParse") String subjectParse,
+									 @RequestParam(value = "isUpdate",required = false)Integer isUpdate,
+									 HttpServletRequest request) throws UnsupportedEncodingException {
+		//String keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"), "utf-8");
+		String subjectTitles = new String (request.getParameter("subjectTitle").getBytes("ISO-8859-1"),"utf-8");
+		String subjectOptionAs = new String (request.getParameter("subjectOptionA").getBytes("ISO-8859-1"),"utf-8");
+		String subjectOptionBs = new String (request.getParameter("subjectOptionB").getBytes("ISO-8859-1"),"utf-8");
+		String subjectOptionCs = new String (request.getParameter("subjectOptionC").getBytes("ISO-8859-1"),"utf-8");
+		String subjectOptionDs = new String (request.getParameter("subjectOptionD").getBytes("ISO-8859-1"),"utf-8");
+		String subjectAnswers = new String (request.getParameter("subjectAnswer").getBytes("ISO-8859-1"),"utf-8");
+		String subjectParses = new String (request.getParameter("subjectParse").getBytes("ISO-8859-1"),"utf-8");
+		System.out.println("adminController在这里的isupdate"+isUpdate);
+		if (isUpdate==null){
+			System.out.println(subjectTitles);
+			System.out.println(subjectOptionAs);
+			System.out.println(subjectOptionB);
+			subjectService.addSubject(subjectTitles,subjectOptionAs,subjectOptionBs,subjectOptionCs,subjectOptionDs,
+					subjectAnswers,subjectParses);
+		}else{
+			subjectService.updateSubject(subjectId,subjectTitles,subjectOptionAs,subjectOptionBs,subjectOptionCs,subjectOptionDs,
+					subjectAnswers,subjectParses);
+		}
 
-	    subjectService.addSubject(subject);
-
-		return "admin/subjectList";
+		return "/qiantai/subjectTest/subManageByTea";
 	}
 	
 	

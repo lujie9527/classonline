@@ -11,13 +11,14 @@ import java.util.List;
 public interface SubjectService {
 
 
-    void addSubject(Subject subject);
+    void addSubject(String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,String subjectOptionD,
+                    String subjectAnswer,String subjectParse);
+
+    void updateSubject(Integer subjectId,String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,String subjectOptionD,
+                       String subjectAnswer,String subjectParse);
 
 
-    List<Subject> findSubjectById(Integer subjectId);
-
-
-    Subject findSubjectByTitle(String subjectTitle);
+    List<Subject> findSubjectByTitle(String subjectTitle);
 
 
     void deleteSubject(String[] ids);
@@ -26,10 +27,12 @@ public interface SubjectService {
     void subjectUpload(Integer id, String grade);
 
 
-    void accountResult(String stuId,ArrayList<String> studentAnswers);
+    int accountResult(String stuId,ArrayList<String> studentAnswers);
 
 
     List<Subject> getSubjects();
+
+//    List<Subject> getAllSubject(String subjectTitle);
 
     String getAnswerById(int subjectId);
 }
