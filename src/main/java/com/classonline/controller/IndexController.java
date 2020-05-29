@@ -17,43 +17,30 @@ import com.classonline.utils.JedisUtil;
 @Controller
 //@RequestMapping("/qiantai")
 public class IndexController {
-	private List<Notice> notices=null;
-	@Autowired
-	private NoticeService noticeService;
-	@RequestMapping("/")
-	public ModelAndView index() {
-		//获取公告,首先从redis获取，没有则去数据库查询
-		String redis_notices_json = JedisUtil.get("redis_notices");
-			
-			if(StringUtils.isNotBlank(redis_notices_json)) {
-				notices=new Gson().fromJson(redis_notices_json, new TypeToken<List<Notice>>() {}.getType());
-			}else {
-				notices = noticeService.get4Notices();
-				//存放在redis中
-				String json=new Gson().toJson(notices);
-				try {
-					JedisUtil.setEx("redis_notices", json, 259200);//3天
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("notices", notices);
-		mv.setViewName("/qiantai/index");
-		return mv;
-	}
-	
-	//显示登录页面
-	@RequestMapping("/toLogin")
-	public String toLogin() {
-		return "/qiantai/login";
-	}
+    private List<Notice> notices = null;
+    @Autowired
+    private NoticeService noticeService;
+
+    @RequestMapping("/")
+    public ModelAndView index() {
+        //获取公告,首先从redis获取，没有则去数据库查询
+        notices = noticeService.getNotices();
+        //存放在redis中
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("notices", notices);
+        mv.setViewName("/qiantai/index");
+        return mv;
+    }
+
+    //显示登录页面
+    @RequestMapping("/toLogin")
+    public String toLogin() {
+        return "/qiantai/login";
+    }
 
 
-	@RequestMapping("/loginOut")
-	public String LoginOut(){
-		return "/qiantai/index";
-	}
+    @RequestMapping("/loginOut")
+    public String LoginOut() {
+        return "/qiantai/index";
+    }
 }

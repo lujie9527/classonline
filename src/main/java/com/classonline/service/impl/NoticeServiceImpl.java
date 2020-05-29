@@ -15,9 +15,9 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeMapper noticeMapper;
 	@Override
-	public List<Notice> get4Notices() {
+	public List<Notice> getNotices() {
 
-		List<Notice> list = noticeMapper.get4Notices();
+		List<Notice> list = noticeMapper.getNotices();
 		
 		return list;
 	}

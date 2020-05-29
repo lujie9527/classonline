@@ -42,7 +42,7 @@ public class LoginController {
 			}
 			//存session
 			session.setAttribute("user", student);
-			session.setAttribute("isStu", 1);//标识学生或老师
+			session.setAttribute("isStu", 1);//标识学生
 		}else if("0".equals(role)) {
 			//老师
 			Teacher teacher=teacherService.login(name,password);
@@ -51,6 +51,7 @@ public class LoginController {
 				return tip;
 			}
 			session.setAttribute("user", teacher);
+			session.setAttribute("isStu", 2);//标识老师
 		}
 		tip="{\"status\":200,\"msg\":\"登录成功\"}";
 		return tip;

@@ -41,7 +41,7 @@
         </bean>
         <!-- 扫描serivce -->
         <context:component-scan base-package="com.classonline.service"/>
-        
+
         <!-- google kaptcha的相关配置-->
     <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
         <property name="config">  

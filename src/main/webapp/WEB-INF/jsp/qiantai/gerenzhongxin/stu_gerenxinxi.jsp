@@ -101,6 +101,12 @@
                 <input type="text" name="ruxueTime" autocomplete="off" class="layui-input" value="${user.ruxueTime }" readonly>
             </div>
         </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">答题成绩</label>
+            <div class="layui-input-inline">
+                <input type="text" name="grade" autocomplete="off" class="layui-input" value="${user.grade}" readonly>
+            </div>
+        </div>
     </div>
     <!-- </form>  -->
     <!-- 页脚-->

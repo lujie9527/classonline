@@ -44,20 +44,21 @@
     </style>
 </head>
 <body style="color:#333; background:#f6f6f6">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-        <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
+    <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
 
-        <ul class="navbar-nav">
+    <ul class="navbar-nav">
 
-            <li class="nav-item active">
-                <a class="nav-link " href="${pageContext.request.contextPath }">首页</a>
-            </li>
+        <li class="nav-item active">
+            <a class="nav-link " href="${pageContext.request.contextPath }">首页</a>
+        </li>
 
-            <li class="nav-item">
-                <a class="nav-link " href="${pageContext.request.contextPath}/notice/all">公告通知</a>
-            </li>
-            <!-- Dropdown -->
+        <li class="nav-item">
+            <a class="nav-link " href="${pageContext.request.contextPath}/notice/all">公告通知</a>
+        </li>
+        <!-- Dropdown -->
+        <c:if test="${isStu==1}">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
                 <div class="dropdown-menu">
@@ -65,7 +66,9 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
                 </div>
             </li>
-            <!-- Dropdown -->
+        </c:if>
+        <!-- Dropdown -->
+        <c:if test="${isStu==1}">
             <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> 资源中心 </a>
                 <div class="dropdown-menu">
@@ -73,30 +76,42 @@
                     <a class="dropdown-item" href="${pageContext.request.contextPath }/video/all">教学视频</a>
                 </div>
             </li>
+        </c:if>
 
-            <li class="nav-item ">
-                <a class="nav-link" href="${pageContext.request.contextPath }/liuyan/all">留言答疑</a>
-            </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="${pageContext.request.contextPath }/liuyan/all">留言答疑</a>
+        </li>
 
-<%--            <li class="nav-item ">--%>
-<%--                <a class="nav-link" href="${pageContext.request.contextPath }/link/all">友情链接</a>--%>
-<%--            </li>--%>
-
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
-            </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
+        </li>
+        <c:if test="${user!=null}">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
             </li>
-        </ul>
-
-        <c:if test="${user==null}">
-            <ul class="navbar-nav ml-auto" style="margin-right:70px;">
-                <button type="button" class="btn btn-light" onclick="window.location.href='${pageContext.request.contextPath }/toLogin'">登录</button>
-            </ul>
         </c:if>
-    </nav>
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
+            </li>
+        </c:if>
+    </ul>
+
+    <c:if test="${user==null}">
+        <ul class="navbar-nav ml-auto" style="margin-right:70px;">
+            <button type="button" class="btn btn-light"
+                    onclick="window.location.href='${pageContext.request.contextPath }/toLogin'">登录
+            </button>
+        </ul>
+    </c:if>
+    <c:if test="${user!=null}">
+        <ul class="navbar-nav ml-auto" style="margin-right:70px;">
+            <button type="button" class="btn btn-light"
+                    onclick="window.location.href='${pageContext.request.contextPath}/qiantai/loginOut'">退出
+            </button>
+        </ul>
+    </c:if>
+</nav>
 
 
     <br/>

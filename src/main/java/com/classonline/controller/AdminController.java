@@ -53,7 +53,6 @@ public class AdminController {
 	private SubjectService subjectService;
 	
 	@RequestMapping("/index")
-	//这就表示路径 /hello 会映射到该方法上
 	public String index(HttpServletRequest request) {
 		Object obj = request.getSession().getAttribute("admin");
 		if(obj==null) {
@@ -77,6 +76,7 @@ public class AdminController {
 		request.getSession().setAttribute("admin", null);
 		return "/admin/login";
 	}
+
 	@RequestMapping("/editpassword")
 	@ResponseBody
 	public String editpassword(String password,HttpServletRequest request) {
@@ -84,11 +84,13 @@ public class AdminController {
 		adminService.updatePwd(admin.getId(),password);
 		return "200";
 	}
+
 	@RequestMapping("/tip")
 	public String tip() {
 		return "/admin/tip";
 	}
-	
+
+
 	// 学生信息列表
 	@RequestMapping("/student/list")
 	public String ShowlistStudent() {
@@ -262,8 +264,7 @@ public class AdminController {
 		return "200";
 	}
 
-	
-	
+
 	// 公告
 	@RequestMapping("/notice/list")
 	public String showListNotice() {
@@ -287,31 +288,13 @@ public class AdminController {
 			noticeService.updateNotice(id,title,content);
 			
 		}
-		List<Notice> notices = noticeService.get4Notices();
-		//存放在redis中
-		String json=new Gson().toJson(notices);
-		try {
-			JedisUtil.setEx("redis_notices", json, 259200);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}//3天
-		
 		return "/admin/noticeList";
 	}
 	@RequestMapping("/notice/delete")
 	@ResponseBody
 	public String deleteNotice(@RequestParam(value="ids[]") String [] ids) {
 		noticeService.deleteNotice(ids);
-		List<Notice> notices = noticeService.get4Notices();
 		//存放在redis中
-		String json=new Gson().toJson(notices);
-		try {
-			JedisUtil.setEx("redis_notices", json, 259200);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}//3天
 		return "200";
 	}
 
@@ -328,12 +311,12 @@ public class AdminController {
 		return subjectService.getSubjects();
 	}
 
-	@RequestMapping("/subject/delete")
-	@ResponseBody
-	public String deleteSubject(@RequestParam(value="ids[]") String [] ids){
-		subjectService.deleteSubject(ids);
-		return "200";
-	}
+//	@RequestMapping("/subject/delete")
+//	@ResponseBody
+//	public String deleteSubject(@RequestParam(value="ids[]") String [] ids){
+//		subjectService.deleteSubject(ids);
+//		return "200";
+//	}
 
 	@RequestMapping("/subject/addSub")
 	public String addOrUpdateSubject(@RequestParam(value = "subjectId")Integer subjectId,

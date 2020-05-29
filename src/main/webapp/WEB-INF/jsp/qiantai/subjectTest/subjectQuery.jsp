@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: 11192
@@ -28,9 +27,11 @@
             margin-bottom: 0px;
             background-color: #EEF2FB;
         }
-        #showSubject table  td{
-            font-size:12px;
+
+        #showSubject table td {
+            font-size: 12px;
         }
+
         -->
     </style>
 </head>
@@ -39,29 +40,30 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td width="17" valign="top" background="images/mail_leftbg.gif">
-            <img src="images/left-top-right.gif" width="17" height="29" />
+            <img src="images/left-top-right.gif" width="17" height="29"/>
         </td>
         <td valign="top" background="images/content-bg.gif">
             <table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
                 <tr>
                     <td height="31">
-                        <div class="titlebt">查看试题</div>
+                        <div class="titlebt">查询试题</div>
                     </td>
                 </tr>
             </table>
         </td>
         <td width="16" valign="top" background="images/mail_rightbg.gif">
-            <img src="images/nav-right-bg.gif" width="16" height="29" />
+            <img src="images/nav-right-bg.gif" width="16" height="29"/>
         </td>
     </tr>
     <tr>
         <td valign="middle" background="images/mail_leftbg.gif">&nbsp;</td>
-        <td valign="top" bgcolor="#F7F8F9"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-            <tr>
-                <td width="53%" valign="top">&nbsp;</td>
-            </tr>
-            <tr>
-                <td valign="middle">
+        <td valign="top" bgcolor="#F7F8F9">
+            <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="53%" valign="top">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="middle">
                     <span class="left_txt">
                         <div align="center"><!--模糊查询试题-->
                             <form action="${pageContext.request.contextPath}/sub/findSub" method="post">
@@ -69,7 +71,7 @@
                                     <tr>
                                         <td>试题题目:</td>
                                         <td>
-                                            <input name="subjectTitle" size="50" >
+                                            <input name="subjectTitle" size="50">
                                         </td>
                                     </tr>
                                     <tr>
@@ -77,6 +79,7 @@
                                             <div align="center">
                                                 <input type="submit" name="Submit" value="查询">
                                                 <input type="reset" name="Submit2" value="重置">
+                                                <a class="btn-default" href="${pageContext.request.contextPath}/sub/allSub">返回</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -84,21 +87,32 @@
                             </form>
                         </div>
                     </span>
+                <tr>
 
-                    <div class="container" style="width: 800px">
+                    <div class="container" align="center">
                         <c:forEach items="${findSubject}" var="findSubject">
-                            <div class="col-md-6">${findSubject.subjectId} ${findSubject.subjectTitle}</div>
-                            <div class="col-md-6">${findSubject.subjectOptionA}</div>
-                            <div class="col-md-6">${findSubject.subjectOptionB}</div>
-                            <div class="col-md-6">${findSubject.subjectOptionC}</div>
-                            <div class="col-md-6">${findSubject.subjectOptionD}</div>
-                            <div class="col-md-6">${findSubject.subjectAnswer}</div>
-                            <div class="col-md-6">${findSubject.subjectParse}</div>
+
+                            <div class="col-md-6" align="left">${findSubject.subjectId} ${findSubject.subjectTitle}</div>
+
+                            <div class="col-md-6" align="left">A.${findSubject.subjectOptionA}</div>
+
+                            <div class="col-md-6" align="left">B.${findSubject.subjectOptionB}</div>
+
+                            <div class="col-md-6" align="left">C.${findSubject.subjectOptionC}</div>
+
+                            <div class="col-md-6" align="left">D.${findSubject.subjectOptionD}</div>
+
+                           <div class="col-md-6" align="left"> 答案：${findSubject.subjectAnswer}</div>
+
+                           <div class="col-md-6" align="left"> 解析：${findSubject.subjectParse}</div>
+                            <a href="${pageContext.request.contextPath}/sub/subUpdate?subjectId=${findSubject.subjectId}">修改</a>
+                            <a href="${pageContext.request.contextPath}/sub/subDelete?subjectId=${findSubject.subjectId}">删除</a>
                         </c:forEach>
                     </div>
+                </tr>
                 </td>
-            </tr>
-        </table>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>

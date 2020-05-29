@@ -52,38 +52,45 @@
             <a class="nav-link " href="${pageContext.request.contextPath}/notice/all">公告通知</a>
         </li>
         <!-- Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
-            </div>
-        </li>
+        <c:if test="${isStu==1}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                </div>
+            </li>
+        </c:if>
         <!-- Dropdown -->
-        <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> 资源中心 </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/doc/all">资料下载</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/video/all">教学视频</a>
-            </div>
-        </li>
+        <c:if test="${isStu==1}">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> 资源中心 </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/doc/all">资料下载</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/video/all">教学视频</a>
+                </div>
+            </li>
+        </c:if>
 
         <li class="nav-item ">
             <a class="nav-link" href="${pageContext.request.contextPath }/liuyan/all">留言答疑</a>
         </li>
 
-        <%--        <li class="nav-item ">--%>
-        <%--            <a class="nav-link" href="${pageContext.request.contextPath }/link/all">友情链接</a>--%>
-        <%--        </li>--%>
-
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-        </li>
+        <c:if test="${user!=null}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+            </li>
+        </c:if>
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
+            </li>
+        </c:if>
     </ul>
+
     <c:if test="${user==null}">
         <ul class="navbar-nav ml-auto" style="margin-right:70px;">
             <button type="button" class="btn btn-light"
@@ -99,80 +106,72 @@
         </ul>
     </c:if>
 </nav>
-<input id="pageContext" type="hidden" value="${pageContext.request.contextPath}"/>
-<table width="1003" class="layui-table">
+
+
+<table width="1003" border="0" align="center" cellpadding="0" cellspacing="10">
     <tr>
-        <td width="741" valign="top" class="rightbian">
-            <table width="1003" border="0" align="center" cellpadding="0" cellspacing="10">
-                <tr>
-                    <td>
-                        <div align="center" class="STYLE3">考试时间：120 分钟</div>
-                    </td>
-                    <td>
-                        <div align="center" class="STYLE3">考生：${sessionScope.user.name}</div>
-                    </td>
-                    <%--                     sessionScope.xx == session.getAttribute("xx");--%>
-                    <td>
-                        <div align="center" class="STYLE3">总分 ：100 分</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>
-                        <div id="tTime"></div>
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="3" bgcolor="#999999" class="STYLE4">选择题(每小题5分，共20题)</td>
-                </tr>
-                <!--题目开始-->
-                <form action="" method="post" id="subForm" name="subForm">
-                    <c:forEach items="${subjectList}" var="subject" varStatus="sta">
-                        <tr>
-                            <input type="hidden" name="subjectId"
-                                   value="${pageContext.request.contextPath}/sub/getSubList/${subject.subjectId}"/>
-                            <td colspan="3">
-                                <strong>第<span class="STYLE5">${sta.index + 1}</span>题&nbsp;${subject.subjectTitle}
-                                </strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><label class="layui-form-label">A.</label>${subject.subjectOptionA}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><label class="layui-form-label">B.</label>${subject.subjectOptionB}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><label class="layui-form-label">C.</label>${subject.subjectOptionC}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"><label class="layui-form-label">D.</label>${subject.subjectOptionD}</td>
-                        </tr>
-                        <tr>
-                            <td height="32" colspan="3" bgcolor="#CCCCCC">选择答案：
-                                <input type="radio" name="subjectAnswer${sta.index}" value="A" checked="checked"/>A
-                                <input type="radio" name="subjectAnswer${sta.index}" value="B"/>B
-                                <input type="radio" name="subjectAnswer${sta.index}" value="C"/>C
-                                <input type="radio" name="subjectAnswer${sta.index}" value="D"/>D
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    <!--题目结束-->
-                    <tr>
-                        <td colspan="3">
-                            <div align="center">
-                                <button class="layui-btn" id="submitTest" name="submitTest">提交试卷</button>
-                            </div>
-                            <div name="rs" id="rs">
-                                试试看吧显示吧
-                            </div>
-                        </td>
-                    </tr>
-                </form>
-            </table>
+        <td>
+            <div align="center" class="STYLE3">考试时间：120 分钟</div>
+        </td>
+        <td>
+            <div align="center" class="STYLE3">考生：${sessionScope.user.name}</div>
+        </td>
+        <%--                     sessionScope.xx == session.getAttribute("xx");--%>
+        <td>
+            <div align="center" class="STYLE3">总分 ：100 分</div>
         </td>
     </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <div id="tTime"></div>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3" bgcolor="#999999" class="STYLE4">选择题(每小题5分，共20题)</td>
+    </tr>
+    <!--题目开始-->
+    <div action="" method="post" id="subForm" name="subForm">
+        <c:forEach items="${subjectList}" var="subject" varStatus="sta">
+            <tr>
+                <input type="hidden" name="subjectId"
+                       value="${pageContext.request.contextPath}/sub/getSubList/${subject.subjectId}"/>
+                <td colspan="3">
+                    <strong>第<span class="STYLE5">${sta.index + 1}</span>题&nbsp;${subject.subjectTitle}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><label class="layui-form-label">A.</label>${subject.subjectOptionA}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><label class="layui-form-label">B.</label>${subject.subjectOptionB}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><label class="layui-form-label">C.</label>${subject.subjectOptionC}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><label class="layui-form-label">D.</label>${subject.subjectOptionD}</td>
+            </tr>
+            <tr>
+                <td height="32" colspan="3" bgcolor="#CCCCCC">选择答案：
+                    <input type="radio" name="subjectAnswer${sta.index}" value="A" checked="checked"/>A
+                    <input type="radio" name="subjectAnswer${sta.index}" value="B"/>B
+                    <input type="radio" name="subjectAnswer${sta.index}" value="C"/>C
+                    <input type="radio" name="subjectAnswer${sta.index}" value="D"/>D
+                </td>
+            </tr>
+        </c:forEach>
+        <!--题目结束-->
+        <tr>
+            <td colspan="3">
+                <div align="center">
+                    <button class="layui-btn" id="submitTest" name="submitTest">提交试卷</button>
+                </div>
+                <div name="rs" id="rs"></div>
+            </td>
+        </tr>
+    </div>
 </table>
 <script>
     $("button[name='submitTest']").click(function () {
@@ -182,31 +181,22 @@
             if ($(this).prop("checked")) {
                 data.push($(this).val());
             }
-
         });
 
-        var json_data = JSON.stringify(data);
-
-        console.log(json_data);
 
         $.ajax({
-            type: "post",
-            url: $("#pageContext").val() + "/sub/subresult",
+            type: "POST",
+            url: "${pageContext.request.contextPath}/sub/subresult",
             dataType: "json",
-            data: json_data,
-            contentType: "application/json",
+            contentType:"application/json",
+            data: JSON.stringify(data),
             success: function (data) {
                 console.log(data);
-                // var subjectAnswer = new Array();
-                // for (var i = 0;i<20;i++){
-                //     subjectAnswer[i] = data[i];
-                // }
-                //  $("#rs").html(data);
+                alert("提交成功！");
+                window.location.href="${pageContext.request.contextPath}/sub/boom2";
             },
             error: function () {
                 alert("提交失败");
-            },end:function () {
-                alert("查看成绩")
             }
         });
 

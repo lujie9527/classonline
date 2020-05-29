@@ -5,19 +5,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>首页</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
+
 <%--    <c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>--%>
 
-<%--    <link rel="stylesheet" href='<c:url value="${pageContext.request.contextPath}/css/bootstrap.min.css"></c:url>'>--%>
-<%--    <link rel="stylesheet" href='<c:url value="${pageContext.request.contextPath}/js/jquery-3.5.0.min.js"></c:url>'>--%>
-<%--    <link rel="stylesheet" href='<c:url value="${pageContext.request.contextPath}/js/bootstrap.min.js"></c:url>'>--%>
-<%--    <script type="javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.min.js"></script>--%>
-<%--    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>--%>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<%--    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>--%>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <style>
         /* Make the image fully responsive */
@@ -45,6 +42,7 @@
             <a class="nav-link " href="${pageContext.request.contextPath}/notice/all">公告通知</a>
         </li>
         <!-- Dropdown -->
+        <c:if test="${isStu==1}">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
             <div class="dropdown-menu">
@@ -52,7 +50,9 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
             </div>
         </li>
+        </c:if>
         <!-- Dropdown -->
+        <c:if test="${isStu==1}">
         <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> 资源中心 </a>
             <div class="dropdown-menu">
@@ -60,23 +60,21 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath }/video/all">教学视频</a>
             </div>
         </li>
+        </c:if>
 
         <li class="nav-item ">
             <a class="nav-link" href="${pageContext.request.contextPath }/liuyan/all">留言答疑</a>
         </li>
 
-<%--        <li class="nav-item ">--%>
-<%--            <a class="nav-link" href="${pageContext.request.contextPath }/link/all">友情链接</a>--%>
-<%--        </li>--%>
-
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-
+        <c:if test="${user!=null}">
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
         </li>
-        <c:if test="${isStu!=1}">
+        </c:if>
+        <c:if test="${isStu==2}">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
             </li>
@@ -97,7 +95,6 @@
             </button>
         </ul>
     </c:if>
-
 </nav>
 
 <!--轮播图 -->
@@ -181,7 +178,7 @@
 
 
 <div class="foot" style="height: 60px;">
-    <div class="wraper">
+    <div style="margin: 0px">
         <div class="copyright">
             <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
         </div>

@@ -9,6 +9,7 @@ import com.classonline.service.SubjectService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jdk.nashorn.internal.ir.RuntimeNode;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -31,12 +32,6 @@ public class SubjectController {
     @Autowired
     private StudentService studentService;
 
-//    @RequestMapping("/subject/all")
-//    public String subjectList(HttpServletRequest request){
-//        List<SubjectTest> sublist = subjectService.getSubjectTest(subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,
-//                subjectOptionD,subjectAnswer,subjectParse);
-//    }
-
 
     @RequestMapping("/onlinehw")
     public String onlineHomework(HttpServletRequest request){
@@ -53,11 +48,13 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subresult",method = RequestMethod.POST)
-//    @ResponseBody
-    public void subResult(HttpServletRequest request, @RequestBody ArrayList<String> subAnswers){
+    @ResponseBody
+    public List<String> subResult(HttpServletRequest request, @RequestBody ArrayList<String> subAnswers){
 
         Student student = (Student) request.getSession().getAttribute("user");
-        int stuGrade =  subjectService.accountResult(student.getId(), subAnswers);
+        subjectService.accountResult(student.getId(), subAnswers);
+        System.out.println("LIST=="+subAnswers);
+        return subAnswers;
     }
 
 
@@ -66,7 +63,24 @@ public class SubjectController {
                                       String subjectAnswer,String subjectParse){
         subjectService.addSubject(subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
                 subjectAnswer,subjectParse);
-        return "200";
+        return "qiantai/subjectTest/addSuccess";
+    }
+
+    @RequestMapping("/boom")
+    public String boomAdd(){
+        return "/qiantai/subjectTest/subjectAdd";
+    }
+
+    @RequestMapping("/boom2")
+    public String boomGrade(){
+        return "/qiantai/subjectTest/examResult";
+    }
+
+    @RequestMapping("/boom3")
+    public String boomAnswer(Model model){
+        List<Subject> listSub = subjectService.getSubjects();
+        model.addAttribute("subjectList",listSub);
+        return "/qiantai/subjectTest/showAnswer";
     }
 
     @RequestMapping("/getSubList")
@@ -82,18 +96,9 @@ public class SubjectController {
 
 
     @RequestMapping("/allSub")
-    public String getAllSubject(HttpServletRequest request,
-                                Model model){
-        Object user = request.getSession().getAttribute("user");
-        if (user instanceof Teacher){
-            Teacher teacher = (Teacher)user;
-//            PageHelper.startPage(pageNum,10);
-            List<Subject> list = subjectService.getSubjects();
-//            PageInfo<Subject> pageInfo = new PageInfo<Subject>(list,10);
-            model.addAttribute("manageSubList",list);
-            System.out.println("麻烦你输出"+list);
-
-        }
+    public String getAllSubject(HttpServletRequest request, Model model){
+        List<Subject> list = subjectService.getSubjects();
+        model.addAttribute("manageSubList",list);
         return "qiantai/subjectTest/subjectManage";
     }
 
@@ -104,9 +109,53 @@ public class SubjectController {
        List<Subject> subject = subjectService.findSubjectByTitle(subjectTitle);
 
         request.setAttribute("findSubject",subject);
-        System.out.println("运行到findSub了吗subject"+subject);
-        System.out.println("运行到findSub了吗subjectitle"+subjectTitle);
+
         return "qiantai/subjectTest/subjectQuery";
+    }
+
+    @RequestMapping("subShow")
+    public ModelAndView showSubject(@RequestParam("subjectId")Integer subjectId){
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("subjectId",subjectId);
+        Subject sub = subjectService.findSubjectById(subjectId);
+        mv.addObject("subjectOne",sub);
+        mv.setViewName("/qiantai/subjectTest/subjectShow");
+        return mv;
+    }
+
+    @RequestMapping("/subUpdate")
+    public ModelAndView updateSubject(@RequestParam("subjectId") Integer subjectId){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("subjectId",subjectId);
+        Subject sub = subjectService.findSubjectById(subjectId);
+        mv.addObject("subjectUp",sub);
+        mv.setViewName("/qiantai/subjectTest/subjectUpdate");
+        return mv;
+    }
+
+    @RequestMapping("/subUpdate2")
+    public ModelAndView updateSubject2(@RequestParam("subjectId")Integer subjectId,
+                                       @RequestParam("subjectTitle")String subjectTitle,
+                                       @RequestParam("subjectOptionA")String subjectOptionA,
+                                       @RequestParam("subjectOptionB")String subjectOptionB,
+                                       @RequestParam("subjectOptionC")String subjectOptionC,
+                                       @RequestParam("subjectOptionD")String subjectOptionD,
+                                       @RequestParam("subjectAnswer")String subjectAnswer,
+                                       @RequestParam("subjectParse")String subjectParse){
+        System.out.println("那答案能出来吗？"+subjectAnswer);
+        System.out.println("解析去哪了？"+subjectParse);
+        ModelAndView mv = new ModelAndView();
+        subjectService.updateSubject(subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+                subjectAnswer,subjectParse);
+        mv.setViewName("/qiantai/subjectTest/subjectUpdate");
+        return mv;
+    }
+
+    @RequestMapping("/subDelete")
+    public String deleteSubject(@RequestParam("subjectId") Integer subjectId){
+        subjectService.deleteSubject(subjectId);
+        return "qiantai/subjectTest/deleteSuccess";
     }
 
 

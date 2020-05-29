@@ -20,8 +20,9 @@ public interface SubjectService {
 
     List<Subject> findSubjectByTitle(String subjectTitle);
 
+    Subject findSubjectById(Integer subjectId);
 
-    void deleteSubject(String[] ids);
+    void deleteSubject(Integer subjectId);
 
 
     void subjectUpload(Integer id, String grade);

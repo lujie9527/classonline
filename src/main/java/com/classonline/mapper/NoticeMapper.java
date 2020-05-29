@@ -20,9 +20,9 @@ public interface NoticeMapper {
 	@Results({
 		@Result(column="adminId",property="admin",one=@One(select="com.classonline.mapper.AdminMapper.getAdminById"))
 	})
-	@Select("select * from notice  order by noticeTime desc limit 0,8")
-	//取出第第1条至第8条记录，共8条记录。
-	List<Notice> get4Notices();
+	@Select("select * from notice  order by noticeTime desc")
+
+	List<Notice> getNotices();
 
 
 	@Results({

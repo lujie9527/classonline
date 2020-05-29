@@ -10,7 +10,9 @@
     <title>个人中心</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#loginOut").click(function () {
@@ -21,7 +23,77 @@
         });
     </script>
 </head>
+
 <body class="layui-layout-body">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
+
+    <ul class="navbar-nav">
+
+        <li class="nav-item active">
+            <a class="nav-link " href="${pageContext.request.contextPath }">首页</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="${pageContext.request.contextPath}/notice/all">公告通知</a>
+        </li>
+        <!-- Dropdown -->
+        <c:if test="${isStu==1}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                </div>
+            </li>
+        </c:if>
+        <!-- Dropdown -->
+        <c:if test="${isStu==1}">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> 资源中心 </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/doc/all">资料下载</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/video/all">教学视频</a>
+                </div>
+            </li>
+        </c:if>
+
+        <li class="nav-item ">
+            <a class="nav-link" href="${pageContext.request.contextPath }/liuyan/all">留言答疑</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
+        </li>
+        <c:if test="${user!=null}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+            </li>
+        </c:if>
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
+            </li>
+        </c:if>
+    </ul>
+
+    <c:if test="${user==null}">
+        <ul class="navbar-nav ml-auto" style="margin-right:70px;">
+            <button type="button" class="btn btn-light"
+                    onclick="window.location.href='${pageContext.request.contextPath }/toLogin'">登录
+            </button>
+        </ul>
+    </c:if>
+    <c:if test="${user!=null}">
+        <ul class="navbar-nav ml-auto" style="margin-right:70px;">
+            <button type="button" class="btn btn-light"
+                    onclick="window.location.href='${pageContext.request.contextPath}/qiantai/loginOut'">退出
+            </button>
+        </ul>
+    </c:if>
+</nav>
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
@@ -46,7 +118,7 @@
                        class="site-demo-active" data-type="tabAdd">个人信息</a>
                 </li>
 <%--                <li class="layui-nav-item">--%>
-<%--                    <a href="javascript:;" data-id="2" data-title="我的作业"--%>
+<%--                    <a href="javascript:;" data-id="2" data-title="我的成绩"--%>
 <%--                       data-url="${pageContext.request.contextPath }/gerenzhongxin/stuwodezuoye"--%>
 <%--                       class="site-demo-active" data-type="tabAdd">我的作业</a>--%>
 <%--                </li>--%>

@@ -9,7 +9,7 @@ public interface NoticeService {
 	 * 查询公告
 	 * @return
 	 */
-	public List<Notice> get4Notices();
+	public List<Notice> getNotices();
 
 	/**
 	 * 根据id查询具体的哪条公告

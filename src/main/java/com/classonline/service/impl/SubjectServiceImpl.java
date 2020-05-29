@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +50,15 @@ public class SubjectServiceImpl implements SubjectService {
 
         return subject;
     }
+    @Override
+    public Subject findSubjectById(Integer subjectId){
+        Subject subject=subjectMapper.findSubjectById(subjectId);
+        return subject;
+    }
 
     @Override
-    public void deleteSubject(String[] ids){
-        for (String id:ids){
-            subjectMapper.deleteSubject(Integer.valueOf(id));
-        }
+    public void deleteSubject(Integer subjectId){
+            subjectMapper.deleteSubject(Integer.valueOf(subjectId));
     }
 
 
