@@ -25,7 +25,6 @@
     </style>
     <link rel="stylesheet" href="css/mycss.css"/>
 
-
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -46,11 +45,23 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">提交作业</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath }/job/stuHomework">我的作业</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw">在线做题</a>
             </div>
         </li>
         </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                </div>
+            </li>
+        </c:if>
+
         <!-- Dropdown -->
         <c:if test="${isStu==1}">
         <li class="nav-item dropdown ">
@@ -76,7 +87,7 @@
         </c:if>
         <c:if test="${isStu==2}">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
     </ul>
@@ -184,5 +195,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -12,7 +12,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jiaoxueshipin.js"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/wangEditor-3.1.1/wangEditor.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/wangEditor-3.1.1/wangEditor.min.js" charset="UTF-8"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/liuyanjiehuo1.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/liuyanjiehuo2.css" type="text/css">
 
@@ -102,9 +102,9 @@
     </c:if>
 </nav>
     <div class="container text-right">
-<%--        <c:if test="${isStu==1 }">--%>
+        <c:if test="${isStu==1 }">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" style="margin-top:5px;margin-bottom:5px;">我要留言</button>
-<%--        </c:if>--%>
+        </c:if>
     </div>
     <div class="container justify-content-center">
         <div id="main">
@@ -243,7 +243,7 @@
 
 
     $("#ok").click(function () {
-        var title = $("#title").val().trim();
+        var title = $("#title").val().trim();//trim()去掉文字前的空格
         if (title == "") {
             alert("请填写标题");
             return;

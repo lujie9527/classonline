@@ -18,11 +18,14 @@ import com.classonline.utils.SqlProvider;
 
 public interface DocMapper {
 
+	//获取所有资料
 	@Results({
 		@Result(column="teacherId",property="teacher",one=@One(select="com.classonline.mapper.TeacherMapper.getTeacherById"))
 	})
 	@SelectProvider(type=SqlProvider.class,method="getSqlForAllDocs")
 	List<Doc> getAllDocs(String keyword);
+
+
 
 	@Results({
 		@Result(column="docId",property="doc",one=@One(select="com.classonline.mapper.DocMapper.getDocById"))

@@ -1,10 +1,12 @@
 package com.classonline.utils;
 
 public class TeacherTijiao {
+
 	private int id;//jobId
 	private String name;//jobName
 	private int banjiId;
 	private int professionId;
+
 	public int getId() {
 		return id;
 	}

@@ -73,7 +73,6 @@ public class SubjectServiceImpl implements SubjectService {
         int generalPoint = 0;
         for (int i = 0;i < 20;i++){
             String rightAnswer = subjectMapper.getSubAnswerById(i+1);
-            System.out.println("这里是rightAnswer"+rightAnswer);
             if ((rightAnswer.equals(studentAnswers.get(i)))){
                 generalPoint +=5;
             }

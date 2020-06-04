@@ -18,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
+
+
+//验证码
 @Controller
 @RequestMapping("/captcha")
 public class CaptchaController {

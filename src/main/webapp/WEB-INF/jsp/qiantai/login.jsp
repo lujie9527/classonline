@@ -45,7 +45,9 @@
                             </div>
                             <div class="layui-col-xs5">
                                 <div style="margin-left: 10px;">
-                                    <img src="${pageContext.request.contextPath }/captcha/code" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode" onclick="this.src=this.src+'?'+Math.random()">
+                                    <img src="${pageContext.request.contextPath }/captcha/code"
+                                         class="layadmin-user-login-codeimg" id="LAY-user-get-vercode"
+                                         onclick="this.src=this.src+'?'+Math.random()">
                                 </div>
                             </div>
                         </div>
@@ -61,8 +63,7 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit=""
-                                lay-filter="LAY-user-login-submit">登 录
+                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">登 录
                         </button>
                     </div>
                 </div>

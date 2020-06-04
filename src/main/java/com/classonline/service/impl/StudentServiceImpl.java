@@ -65,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
 		 for(TeacherJob tj:lists) {
 			 je=new JobExtend();
 			 je.setJobId(tj.getJob().getId());
-			 je.setJobName(tj.getJob().getName());
+			 je.setJobName(tj.getJob().getJobTitle());
 			 je.setGrade(tj.getGrade());
 			 je.setPigaiTeacher(tj.getTeacher().getName());
 			 je.setPigaiTime(tj.getPigaiTime());

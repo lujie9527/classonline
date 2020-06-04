@@ -15,7 +15,7 @@
             $("#video").change(function () {
                 var formData = new FormData();
                 var file = $("#video")[0].files[0];
-                formData.append("job", file);
+                formData.append("job", file);//append() 方法在被选元素的结尾（仍然在内部）插入指定内容(在file后插入job)
                 $.ajax({
                     url: '${pageContext.request.contextPath}/upload/job',
                     data: formData,

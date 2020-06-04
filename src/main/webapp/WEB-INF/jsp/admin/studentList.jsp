@@ -280,11 +280,10 @@
 					<tr>
 						<td>专业</td>
 						<td>
-							<input id="professionId" name="professionId">	
+							<input id="professionId" name="professionId" style="width: 120px">
 						</td>
 					</tr>
-					
-					
+
 					<tr>
 						<td>班级</td>
 						<td>

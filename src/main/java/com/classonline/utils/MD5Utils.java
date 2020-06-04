@@ -12,8 +12,10 @@ public class MD5Utils {
 	public static String md5(String plainText) {
 		byte[] secretBytes = null;
 		try {
-			secretBytes = MessageDigest.getInstance("md5").digest(
-					plainText.getBytes());
+            // 获得MD5摘要算法的 MessageDigest对象并生成MD5码
+            //MessageDigest.getInstance()返回指定摘要的对象
+            //digest 通过执行诸如填充之类的最终操作完成哈希计算，在调用此方法之后，摘要被重置
+			secretBytes = MessageDigest.getInstance("md5").digest(plainText.getBytes());
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException("没有md5这个算法！");
 		}
@@ -26,7 +28,7 @@ public class MD5Utils {
 	}
 
 	public static void main(String[] args) {
-		//System.out.println(md5("123456"));
+
 		int length = "e10adc3949ba59abbe56e057f20f883e".length();
 		String sdf="safaf";
 		System.out.println(length);

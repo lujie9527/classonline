@@ -31,16 +31,17 @@ public class UploadController {
 	@Autowired
 	private TeacherService teacherService;
 	@RequestMapping(value="/job")
-	public void uploadJob(@RequestParam(value="job",required=false) MultipartFile uploadFile ,HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void uploadJob(@RequestParam(value="job",required=false) MultipartFile uploadFile ,HttpServletRequest request,
+						  HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
-		//获取原始名
+		//获取原始名称
 		String filename = uploadFile.getOriginalFilename();
 		//新文件名
 		filename=UUID.randomUUID().toString().replace("-","")+"-"+filename;
 		//获取服务器地址
 		String realPath = request.getServletContext().getRealPath("/upload");
 		File storePath=new File(realPath);
-		if(!storePath.exists()) storePath.mkdirs();
+		if(!storePath.exists()) storePath.mkdirs();//如果路径不存在，就在upload下创建多层目录
 		
 		//解决同一个目录下文件太多
 		String childDirectory=makeChildDirectory(storePath);
@@ -59,8 +60,8 @@ public class UploadController {
 
 	private String makeChildDirectory(File storePath) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
-		String dateDirectory = sdf.format(new Date());
-		File file=new File(storePath,dateDirectory);
+		String dateDirectory = sdf.format(new Date());//制定字符串格式和参数生成格式化的新字符串
+		File file=new File(storePath,dateDirectory);//将年月日作为每层的文件名
 		if(!file.exists()) file.mkdirs();
 		return dateDirectory;
 	}

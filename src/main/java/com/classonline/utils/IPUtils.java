@@ -13,8 +13,9 @@ public class IPUtils {
 	 * @return
 	 */
 	public static String getClientIP(HttpServletRequest request) {
-		String ip = request.getHeader("X-Forwarded-For");
-		  if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+		String ip = request.getHeader("X-Forwarded-For");//获取请求头的头部信息
+		  if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){//isNotEmpty(ip)判断是否为空，
+		  	//equalsIgnoreCase(ip)判断是否为“unknown”，不区分大小写
 			  //多次反向代理后会有多个ip值，第一个ip才是真实ip
 			  int index = ip.indexOf(",");
 			  if(index != -1){

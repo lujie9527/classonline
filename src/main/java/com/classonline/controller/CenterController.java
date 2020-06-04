@@ -30,7 +30,7 @@ public class CenterController {
 		HttpSession session = request.getSession();
 
 		Integer flag=(Integer) session.getAttribute("isStu");
-		if(flag!=null) { //学生
+		if(flag==1) { //学生
 			return "/qiantai/gerenzhongxin/stu_gerenzhongxin";
 		}else {
 
@@ -47,19 +47,19 @@ public class CenterController {
 
 	}
 	
-	@RequestMapping("/gerenxinxi")
-	public String gerenxinxi() {
-		return "/qiantai/gerenzhongxin/stu_gerenxinxi";
-	}
-	@RequestMapping("/stuwodezuoye")
-	public String wodezuoye() {
-		return "/qiantai/gerenzhongxin/wodezuoye";
-		
-	}
-	@RequestMapping("/yixiazai")
-	public String yixiazai() {
-		return "/qiantai/gerenzhongxin/yixiazaiziliao";
-	}
+//	@RequestMapping("/gerenxinxi")
+//	public String gerenxinxi() {
+//		return "/qiantai/gerenzhongxin/stu_gerenxinxi";
+//	}
+//	@RequestMapping("/stuwodezuoye")
+//	public String wodezuoye() {
+//		return "/qiantai/gerenzhongxin/wodezuoye";
+//
+//	}
+//	@RequestMapping("/yixiazai")
+//	public String yixiazai() {
+//		return "/qiantai/gerenzhongxin/yixiazaiziliao";
+//	}
 	
 	//老师
 	@RequestMapping("/teacher/gerenxinxi")

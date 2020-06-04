@@ -1,112 +1,141 @@
 package com.classonline.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.One;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-
 import com.classonline.bean.Job;
 import com.classonline.bean.StuJob;
 import com.classonline.utils.SqlProvider;
-import com.classonline.utils.TeacherTijiao;
+import com.classonline.utils.TeacherTijiao2;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 public interface JobMapper {
 
-	@Insert("insert into job (name,url,uploadTime,lastTime,teacherId,banjiId,professionId) "
-			+ "values (#{name},#{url},#{uploadTime},#{lastTime},#{teacherId},#{banjiId},#{professionId}) ")
+    //添加题目
+    @Insert("insert into job2 (jobTitle,jobDetail,uploadTime,lastTime,teacherId,banjiId,professionId) "
+            + "values (#{jobTitle},#{jobDetail},#{uploadTime},#{lastTime},#{teacherId},#{banjiId},#{professionId}) ")
 
-	void teacherFabu(@Param("name") String name,@Param("url") String url,@Param("uploadTime") String uploadTime,
-			@Param("lastTime") String lastTime,@Param("teacherId") String teacherId, 
-			@Param ("banjiId") Integer banjiId,@Param("professionId") Integer professionId);
-
-
-
-	@Select("select * from job where state=0 and banjiId=#{banjiId}")
-
-	@Results({
-		@Result(column="teacherId",property="teacher",one=@One(select="com.classonline.mapper.TeacherMapper.getTeacherById"))
-	})
-
-	List<Job> getAllJobs(int banjiId);
+    void teacherFabu(@Param("jobTitle") String jobTitle,@Param("jobDetail") String jobDetail,
+                     @Param("uploadTime") String uploadTime, @Param("lastTime") String lastTime,
+                     @Param("teacherId") String teacherId, @Param ("banjiId") Integer banjiId,
+                     @Param("professionId") Integer professionId);
 
 
+    //通过班级ID查找题目
+    @Select("select * from job2 where banjiId=#{banjiId}")
 
+    //当数据库字段名与实体类对应的属性名不一致时，可以使用@Results映射来将其对应起来。
+    //column为数据库字段名，porperty为实体类属性名，jdbcType为数据库字段数据类型，id为是否为主键
+    //名字相同的可以省略
+    //@One注解主要在一对一的关联查询中使用
+    @Results({
+            @Result(column="teacherId",property="teacher",
+                    one=@One(select="com.classonline.mapper.TeacherMapper.getTeacherById"))
+    })
 
-	@Select("select * from job where state=0 and banjiId=#{banjiId}")
-
-	List<Job> getJobsByBanjiId(int banjiId);
-
-
-
-	@Insert("insert into stu_job (url,finishTime,stuId,jobId) value (#{url},#{finishTime},#{stuId},#{jobId})")
-
-	void stuTijiao(@Param("url")String url,@Param("finishTime") String finishTime,@Param("stuId") String stuId,
-				   @Param("jobId") Integer jobId);
+    List<Job> getAllJobs(int banjiId);
 
 
 
-	@SelectProvider(type=SqlProvider.class,method="getSqlForfindJobsByTeacherId")
+    @Select("select * from job2 where banjiId=#{banjiId}")
 
-	@Results({
-		@Result(column="banjiId",property="banji",one=@One(select="com.classonline.mapper.BanjiMapper.getBanjiById")),
-		@Result(column="professionId",property="profession",one=@One(select="com.classonline.mapper.ProfessionMapper.getProfessionById"))
-	})
-
-	List<Job> findJobsByTeacherId(String teacherId,String name, int professionId, int banjiId);
+    List<Job> getJobsByBanjiId(int banjiId);
 
 
 
-	@Select("select * from stu_job where jobId=#{id}")
+    @Insert("insert into stu_job2 (homework,finishTime,stuId,stuName,jobId) " +
+            "values (#{homework},#{finishTime},#{stuId},#{stuName},#{jobId})")
 
-	@Results({
-		@Result(column="stuId",property="student",one=@One(select="com.classonline.mapper.StudentMapper.getStuById"))
-	})
-
-	List<StuJob> getStuJobsByJobId(int id);
-
-
-
-	@Select("select id,name,banjiId,professionId from job where state=0 and teacherId=#{teacherId}")
-
-	List<TeacherTijiao> findJobsForTeacherTijiao(String teacherId);
+    void stuTijiao(@Param("homework")String homework,@Param("finishTime") String finishTime,
+                   @Param("stuId") String stuId,@Param("stuName") String stuName,
+                   @Param("jobId") Integer jobId);
 
 
 
-	//老师提交作业（改好了的）
-	@Insert("insert into teacher_job (stuId,jobId,teacherId,url,grade,pigaiTime,banjiId,professionId)"
-			+ " values (#{stuId},#{jobId},#{teacherId},#{url},#{grade},#{pigaiTime},#{banjiId},#{professionId})")
+    @SelectProvider(type= SqlProvider.class,method="getSqlForfindJobsByTeacherId")
 
-	void teacherTijiao(@Param("stuId") String stuId,@Param("jobId") int jobId,@Param("teacherId") String teacherId, 
-			@Param("url") String url,@Param("grade") double grade,@Param("pigaiTime") String pigaiTime,
-			@Param("banjiId") int banjiId,@Param("professionId") int professionId);
+    @Results({
+            @Result(column="banjiId",property="banji",one=@One(select="com.classonline.mapper.BanjiMapper.getBanjiById")),
+            @Result(column="professionId",property="profession",one=@One(select="com.classonline.mapper.ProfessionMapper.getProfessionById"))
+    })
 
-
-
-	@Select("select * from job where id=#{id}")
-
-	Job getJobById(int id);
+    List<Job> findJobsByTeacherId(String teacherId, String jobTitle, int professionId, int banjiId);
 
 
 
-	@Results({
-		@Result(column="teacherId",property="teacher",one=@One(select="com.classonline.mapper.TeacherMapper.getTeacherById")),
-		@Result(column="banjiId",property="banji",one=@One(select="com.classonline.mapper.BanjiMapper.getBanjiById")),
-		@Result(column="professionId",property="profession",one=@One(select="com.classonline.mapper.ProfessionMapper.getProfessionById"))
-	})
+    @Select("select * from stu_job2 where jobId=#{jobId}")
 
-	@Select("select * from job")
+    @Results({
+            @Result(column="stuId",property="student",one=@One(select="com.classonline.mapper.StudentMapper.getStuById"))
+    })
 
-	List<Job> getJobs();
+    List<StuJob> getStuJobsByJobId(Integer id);
 
 
 
-	@Delete("delete from job where id=#{id}")
+    @Select("select id,jobTitle,banjiId,professionId from job2 where teacherId=#{teacherId}")
 
-	void deleteJob(Integer id);
+    List<TeacherTijiao2> findJobsForTeacherTijiao(String teacherId);
+
+
+
+    //老师提交作业（改好了的）
+    @Insert("insert into teacher_job (stuId,jobId,teacherId,jobDetail,grade,pigaiTime,banjiId,professionId)"
+            + " values (#{stuId},#{jobId},#{teacherId},#{jobDetail},#{grade},#{pigaiTime},#{banjiId},#{professionId})")
+
+    void teacherTijiao(@Param("stuId") String stuId,@Param("jobId") int jobId,@Param("teacherId") String teacherId,
+                       @Param("jobDetail") String jobDetail,@Param("grade") double grade,@Param("pigaiTime") String pigaiTime,
+                       @Param("banjiId") int banjiId,@Param("professionId") int professionId);
+
+
+
+    @Select("select * from stu_job2 where jobId=#{jobId}")
+
+    @Results({
+            @Result(column="stuId",property="student",one=@One(select="com.classonline.mapper.StudentMapper.getStuById"))
+    })
+    List<StuJob> getStuJobById(Integer jobId);
+
+
+    @Select("select * from job2 where id=#{id}")
+
+    Job getJobById(Integer id);
+
+    @Results({
+            @Result(column="teacherId",property="teacher",one=@One(select="com.classonline.mapper.TeacherMapper.getTeacherById")),
+            @Result(column="banjiId",property="banji",one=@One(select="com.classonline.mapper.BanjiMapper.getBanjiById")),
+            @Result(column="professionId",property="profession",one=@One(select="com.classonline.mapper.ProfessionMapper.getProfessionById"))
+    })
+
+    @Select("select * from job2")
+    List<Job> getJobs();
+
+
+    @Delete("delete from job2 where id=#{id}")
+
+    void deleteJob(Integer id);
+
+
+    @Update("update stu_job2 set jobGrade=#{jobGrade} where id=#{id}")
+    void uploadGrade(@Param("jobGrade") Integer jobGrade,@Param("id") Integer id);
+
+
+    @Select("select * from stu_job2 where stuId=#{stuId}")
+
+    @Results({
+            @Result(column = "jobId",property = "job",one = @One(select = "com.classonline.mapper.JobMapper.getJobById")),
+            @Result(column = "stuId",property = "student",one = @One(select = "com.classonline.mapper.StudentMapper.getStuById"))
+    })
+    List<StuJob> getStuHomework(String stuId);
+
+
+
+    @Select("select state from job2 where id=#{id}")
+    int getState(Integer id);
+
+    @Update("update job2 set state=#{state} where id=#{id}")
+
+    void updateState(@Param("state")Integer state,@Param("id") Integer id);
+
+
+
 }

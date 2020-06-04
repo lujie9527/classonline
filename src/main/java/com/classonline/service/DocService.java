@@ -15,6 +15,11 @@ public interface DocService {
 	 */
 	List<Doc> getAllDocs(String keyword);
 
+	/**
+	 *
+	 * @param docId
+	 * @return
+	 */
 	List<Docdetail> getDocDetailsById(int docId);
 
 	void addDocDownload(int docdetailId, String useId, String downTime);

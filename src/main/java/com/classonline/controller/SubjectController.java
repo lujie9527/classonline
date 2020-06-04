@@ -63,7 +63,7 @@ public class SubjectController {
                                       String subjectAnswer,String subjectParse){
         subjectService.addSubject(subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
                 subjectAnswer,subjectParse);
-        return "qiantai/subjectTest/addSuccess";
+        return "redirect:/sub/allSub";
     }
 
     @RequestMapping("/boom")
@@ -155,7 +155,7 @@ public class SubjectController {
     @RequestMapping("/subDelete")
     public String deleteSubject(@RequestParam("subjectId") Integer subjectId){
         subjectService.deleteSubject(subjectId);
-        return "qiantai/subjectTest/deleteSuccess";
+        return "redirect:/sub/allSub";
     }
 
 

@@ -39,10 +39,7 @@
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
     <tr>
-        <td width="17" valign="top" background="images/mail_leftbg.gif">
-            <img src="images/left-top-right.gif" width="17" height="29"/>
-        </td>
-        <td valign="top" background="images/content-bg.gif">
+        <td valign="top">
             <table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
                 <tr>
                     <td height="31">
@@ -51,12 +48,8 @@
                 </tr>
             </table>
         </td>
-        <td width="16" valign="top" background="images/mail_rightbg.gif">
-            <img src="images/nav-right-bg.gif" width="16" height="29"/>
-        </td>
     </tr>
     <tr>
-        <td valign="middle" background="images/mail_leftbg.gif">&nbsp;</td>
         <td valign="top" bgcolor="#F7F8F9">
             <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
                 <tr>

@@ -216,7 +216,7 @@ public class AdminController {
 
 	@RequestMapping("/banji/list/pid")
 	@ResponseBody
-	public List<Banji> getBanjisByPid(@RequestParam("id") int id){
+	public List<Banji> getBanjisByPid(@RequestParam("id") Integer id){
 		return banjiService.getBanjisByPid(id);
 	}
 
