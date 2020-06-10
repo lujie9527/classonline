@@ -48,16 +48,6 @@
                        data-url="${pageContext.request.contextPath }/gerenzhongxin/gerenxinxi"
                        class="site-demo-active" data-type="tabAdd">个人信息</a>
                 </li>
-<%--                <li class="layui-nav-item">--%>
-<%--                    <a href="javascript:;" data-id="2" data-title="我的成绩"--%>
-<%--                       data-url="${pageContext.request.contextPath }/gerenzhongxin/stuwodezuoye"--%>
-<%--                       class="site-demo-active" data-type="tabAdd">我的作业</a>--%>
-<%--                </li>--%>
-<%--                <li class="layui-nav-item">--%>
-<%--                    <a href="javascript:;" data-id="3" data-title="已下载资料"--%>
-<%--                       data-url="${pageContext.request.contextPath }/gerenzhongxin/yixiazai"--%>
-<%--                       class="site-demo-active" data-type="tabAdd">已下载资料</a>--%>
-<%--                </li>--%>
             </ul>
         </div>
     </div>
@@ -67,13 +57,9 @@
         <ul class="layui-tab-title"></ul>
         <div class="layui-tab-content"></div>
     </div>
-
-    <div class="layui-footer" style="text-align:center;">
-    <!-- 底部固定区域 -->
-    <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
 </div>
 
-</div>
+
 <script src="${pageContext.request.contextPath }/layui/layui.js"></script>
 
 <script>

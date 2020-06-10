@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
@@ -31,11 +32,29 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">提交作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/stuHomework">我的作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw">在线做题</a>
                 </div>
             </li>
         </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
+                </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
+            </li>
+        </c:if>
+
         <!-- Dropdown -->
         <c:if test="${isStu==1}">
             <li class="nav-item dropdown ">
@@ -54,16 +73,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -85,7 +99,7 @@
     <div class="container">
         <h4 class="text-center" style="margin:20px;">${notice.title }</h4>
     </div>
-    <div class="container" style="background-color:#EDF1F2">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="form-inline">
                 <span style="font-size:0.8rem">发布人:</span>&nbsp;
@@ -102,15 +116,7 @@
             ${notice.content}
         </span>
     </div>
-    <!-- 页脚-->
-    <div class="footer" style="width: 100%;background: #2A2D34; margin:0 auto; height: 60px;">
-        <div class="foot" style="margin:0 auto; height: 60px;">
-            <div class="copyright"
-                 style="height: 60px;font-size: 12px;color: #72757A;line-height: 60px;text-align: center;">
-                <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
-            </div>
-        </div>
-    </div>
+
 
 </body>
 </html>

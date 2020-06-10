@@ -173,6 +173,7 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+
 		<!-- mybatis分页插件 -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
@@ -195,8 +196,6 @@
 </dependency>
 		
 	</dependencies>
-
-
 
 
 	<build>

@@ -51,4 +51,8 @@ public interface JobService {
 
     void updateState(@Param("state") Integer state,@Param("id") Integer id);
 
+    String getlastTime(Integer id);
+
+    List<Job> findJobByJobTitle(String jobTitle);
+
 }

@@ -47,10 +47,10 @@ public class CenterController {
 
 	}
 	
-//	@RequestMapping("/gerenxinxi")
-//	public String gerenxinxi() {
-//		return "/qiantai/gerenzhongxin/stu_gerenxinxi";
-//	}
+	@RequestMapping("/gerenxinxi")
+	public String gerenxinxi() {
+		return "/qiantai/gerenzhongxin/stu_gerenxinxi";
+	}
 //	@RequestMapping("/stuwodezuoye")
 //	public String wodezuoye() {
 //		return "/qiantai/gerenzhongxin/wodezuoye";

@@ -24,13 +24,13 @@ public class ProfessionServiceImpl implements ProfessionService {
 	@Transactional
 	@Override
 	public void addProfession(Profession profession) {
-		professionMapper.addProfession(profession.getName(),profession.getIntroduction());
+		professionMapper.addProfession(profession.getName());
 		
 	}
 	@Transactional
 	@Override
 	public void updateProfession(Profession profession) {
-		professionMapper.updateProfession(profession.getId(),profession.getName(),profession.getIntroduction());
+		professionMapper.updateProfession(profession.getId(),profession.getName());
 		
 	}
 	@Transactional

@@ -39,7 +39,7 @@ public interface LiuyanMapper {
 		@Result(column="stuId",property="student",one=@One(select="com.classonline.mapper.StudentMapper.getStuById"))
 	})
 	@Select("select * from liuyan where id=#{id}")
-	Liuyan getLiuyanById(int id);
+	Liuyan getLiuyanById(Integer id);
 
 	@Insert("insert into liuyan (title,content,liuyanTime,state,answer,stuId) values (#{title},#{content},#{liuyanTime},#{state},#{answer},#{stuId})")
 	void addLiuyan(@Param("title") String title,@Param("content") String content,@Param("liuyanTime") String liuyanTime

@@ -56,9 +56,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -80,16 +86,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
+
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index" target="_blank">后台管理</a>
         </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -156,20 +157,11 @@
                                    title="${notice.title }"> <b>${notice.title }</b>
                                 </a>
                             </div>
-                            <div class="notify-text">
-                                    ${notice.content }
-                            </div>
+                            <div class="notify-text">${notice.content }</div>
                             <div class="notify-info">
-                                <div class="date">
-
-                                </div>
-                                <div class="time">
-                                        ${notice.noticeTime }
-                                </div>
-                                <div class="see"
-                                     style="margin-top: 10px;margin-left:70px; font-size:14px;color:#7f8082; width: 66px;">${notice.admin.name }
-
-                                </div>
+                                <div class="date"></div>
+                                <div class="time">${notice.noticeTime }</div>
+                                <div class="see" style="margin-top: 10px;margin-left:70px; font-size:14px;color:#7f8082; width: 66px;">${notice.admin.name }</div>
 <%--                                <div class="count">--%>
 <%--                                        ${notice.admin.name }--%>
 <%--                                </div>--%>

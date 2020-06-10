@@ -53,9 +53,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -77,16 +83,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -105,6 +106,8 @@
     </c:if>
 </nav>
 
+
+<h2 style="text-align: center">提交作业</h2>
 <div class="container">
 
     <form action="${pageContext.request.contextPath}/job/stuSubmitJob?jobId=${job.id}" method="post">
@@ -121,12 +124,9 @@
             <div id="editor"></div>
             <textarea id="homework" name="homework" hidden="hidden"></textarea>
 
-
-
-
-
         <div class="col-md-6">
-            <button type="submit" id="ok" class="btn btn-info">提交</button>
+            <br>
+            <button type="submit" id="ok" class="btn btn-info" style="width: 80px;">提交</button>
         </div>
 
     </form>
@@ -144,13 +144,31 @@
         $homework.val(html);
     };
 
-    editor.customConfig.uploadImgServer = '/upload';
+    editor.customConfig.uploadImgServer='${pageContext.request.contextPath}/upload/tupian';
+
+    editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+    editor.customConfig.uploadImgMaxLength = 5;
+    editor.customConfig.uploadFileName = 'myFileName';
+    editor.customConfig.uploadImgHooks = {
+        customInsert: function (insertImg, result, editor) {
+            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+            // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+            var url =result.data;
+            insertImg(url);
+
+            // result 必须是一个 JSON 格式字符串！！！否则报错
+        }
+    };
+
     editor.create();
 
     $homework.val(editor.txt.html());
 
 
 </script>
+
 
 </body>
 </html>

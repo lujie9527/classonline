@@ -22,9 +22,12 @@ public interface BanjiService {
 	 */
 	Banji getBanjiById(int banjiId);
 
-	void addBanji(String name, String description, String professionId);
 
-	void updateBanji(Integer id, String name, String description, String professionId);
+	void addBanji(String name,String professionId);
+
+
+	void updateBanji(Integer id, String name,String professionId);
+
 
 	void deleteBanji(String[] ids);
 

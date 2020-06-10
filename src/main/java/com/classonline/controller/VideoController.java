@@ -24,14 +24,12 @@ public class VideoController {
 
 	@Autowired
 	private VideoService videoService;
-	
+
+	//视频列表
 	@RequestMapping("/all")
-	public String getAllVideos(HttpServletRequest request, @RequestParam(required=false,defaultValue="1")
+	public String getAllVideos( @RequestParam(required=false,defaultValue="1")
 			int pageNum, String keyword,Model model){
 
-		Object user=request.getSession().getAttribute("user");
-		if(user instanceof Student){
-			Student stu = (Student) user;
 			PageHelper.startPage(pageNum, 10);
 			List<Video> lists=videoService.getAllVideos(keyword );
 			PageInfo<Video> pageInfo=new PageInfo<Video>(lists,10);
@@ -39,11 +37,7 @@ public class VideoController {
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("pageInfo", pageInfo);
 			return "/qiantai/ziyuanzhongxin/jiaoxueshipin";
-		}else {
-			Teacher tea = (Teacher) user;
 
-			return "/qiantai/gerenzhongxin/teacher_video";
-		}
 
 	}
 	

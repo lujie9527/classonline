@@ -30,7 +30,7 @@
 		$("#gender").val("");
 		$("#education").val("");
 		$("#job").val("");
-		$("#age").numberbox('setValue',null);  
+		$("#age").numberbox('setValue',null);
 		$("#id").val('');
 		//将添加窗口打开			
 		$('#addStaffWindow').window("open");
@@ -110,26 +110,27 @@
 		width : 50,
 		align : 'center',
 		
-	},{
-		field : 'state',
-		title : '留言状态',
-		width : 100,
-		align : 'center',
-		formatter:function(value,row){
-			if(row["state"]==0){
-				return "待解决";
-			}else{
-				return "已解决";
-			}
-		}
 	}
+	// ,{
+	// 	field : 'state',
+	// 	title : '留言状态',
+	// 	width : 100,
+	// 	align : 'center',
+	// 	formatter:function(value,row){
+	// 		if(row["state"]==0){
+	// 			return "待解决";
+	// 		}else{
+	// 			return "已解决";
+	// 		}
+	// 	}
+	// }
 	] ];
 	
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果
 		$("body").css({visibility:"visible"});
 		
-		// 员工数据表格
+		// 留言数据表格
 		$('#grid').datagrid( {
 			iconCls : 'icon-forward',
 			fit : true,
@@ -145,9 +146,9 @@
 			/* onDblClickRow : doDblClickRow */
 		});
 		
-		// 添加员工窗口
+		//添加窗口
 		$('#addStaffWindow').window({
-            title: '添加员工信息',
+            title: '添加信息',
             width: 400,
             modal: true,
             shadow: true,
@@ -189,14 +190,14 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form id="delBacth"  method="post"><!-- -action="${pageContext.request.contextPath }/delStaffServlet" -->
+	<form id="delBacth"  method="post">
 	    <div region="center" border="false">
 	    	<table id="grid">
 	    		<input type="hidden" name="id" value="id">
 	    	</table>
 		</div>
 	</form>
-	<div class="easyui-window" title="添加新员工" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:100px;left:200px">
+	<div class="easyui-window" title="添加新公告" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:100px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
 				<a id="save" icon="icon-save" href="javascript:commitstaffForm();" class="easyui-linkbutton"  plain="true" >保存</a>
@@ -230,7 +231,7 @@
 						<td><input id="job" type="text" name="job" class="easyui-validatebox" /></td>
 					</tr>
 				</table>
-			</form> 
+			</form>
 		</div>
 	</div>
 </body>

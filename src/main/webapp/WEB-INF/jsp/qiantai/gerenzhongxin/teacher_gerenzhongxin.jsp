@@ -61,11 +61,6 @@
             <ul class="layui-tab-title"></ul>
             <div class="layui-tab-content"></div>
         </div>
-
-        <div class="layui-footer" style="text-align:center;">
-            <!-- 底部固定区域 -->
-            网络教学系统 --- 个人中心
-        </div>
     </div>
     <script src="${pageContext.request.contextPath }/layui/layui.js"></script>
     <script>

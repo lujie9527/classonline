@@ -79,8 +79,8 @@
 		field : 'f',
 		checkbox : true,
 	},{
-		field : 'name',
-		title : '作业名称',
+		field : 'jobTitle',
+		title : '作业标题',
 		width : 200,
 		align : 'center',
 		
@@ -128,30 +128,32 @@
 		width : 160,
 		align : 'center'
 		
-	},{
-		field : 'state',
-		title : '作业状态',
-		width : 60,
-		align : 'center',
-		formatter:function(value,row){
-			if(row.state==0){
-				return "未结束";
-			}else{
-				return "已结束";
-			}
-		}
-		
-	}, 
-	 {
-		field : 'url',
-		title : '下载',
-		width : 100,
-		align : 'center',
-		formatter:function(value,row){
-			return "点击下载";
-		}
-		
-	} ] ];
+	}
+	// ,{
+	// 	field : 'state',
+	// 	title : '作业状态',
+	// 	width : 60,
+	// 	align : 'center',
+	// 	formatter:function(value,row){
+	// 		if(row.state==0){
+	// 			return "未结束";
+	// 		}else{
+	// 			return "已结束";
+	// 		}
+	// 	}
+	//
+	// }
+	// ,
+	//  {
+	// 	field : 'url',
+	// 	title : '下载',
+	// 	width : 100,
+	// 	align : 'center',
+	// 	formatter:function(value,row){
+	// 		return "点击下载";
+	// 	}
+	// }
+	] ];
 	
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果

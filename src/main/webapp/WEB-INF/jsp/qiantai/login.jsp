@@ -58,7 +58,6 @@
                         <div class="layui-input-block" style="margin-left:70px;">
                             <input type="radio" name="role" value="1" title="学生" checked>
                             <input type="radio" name="role" value="0" title="老师">
-<%--                               class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>--%>
                         </div>
                     </div>
 
@@ -75,6 +74,7 @@
     </div>
     <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
     <script src="layui/layui.js"></script>
+
     <script>
         layui.use(['form', 'layedit', 'laydate'], function () {
             var form = layui.form,
@@ -100,7 +100,7 @@
                         return '账号长度必须大于等于4字符';
                     }
                 },
-                password: [/^[\S]{6,18}$/, '密码必须6到18位，且不能出现空格'],
+                password: [/^[\S]{6,18}$/, '密码必须6到18位，且不能出现空格']
 
             });
 

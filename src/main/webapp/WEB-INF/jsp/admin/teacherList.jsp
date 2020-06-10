@@ -134,7 +134,7 @@
 		
 		
 		
-		// 员工数据表格
+		// 教师数据表格
 		$('#grid').datagrid( {
 			iconCls : 'icon-forward',
 			fit : true,
@@ -152,7 +152,7 @@
 		
 		// 添加员工窗口
 		$('#addTeacherWindow').window({
-            title: '添加员工信息',
+            title: '添加教师信息',
             width: 400,
             modal: true,
             shadow: true,
@@ -167,7 +167,7 @@
 	function doDblClickRow(rowIndex, rowData){
 		//将添加窗口弹出
 		$("#addTeacherWindow").panel({
-			title:"修改老师信息"
+			title:"修改教师信息"
 		});
 		$("#addTeacherWindow").window('open');
 		
@@ -203,7 +203,7 @@
 	    	</table>
 		</div>
 	</form>
-	<div class="easyui-window" title="添加新老师" id="addTeacherWindow" collapsible="false" minimizable="false" maximizable="false" style="top:30px;left:300px">
+	<div class="easyui-window" title="添加教师" id="addTeacherWindow" collapsible="false" minimizable="false" maximizable="false" style="top:30px;left:300px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
 				<a id="save" icon="icon-save" href="javascript:committeacherForm();" class="easyui-linkbutton"  plain="true" >保存</a>
@@ -214,7 +214,7 @@
 		 <input type="hidden" id="isUpdate" name="isUpdate"/>
 			<table class="table-edit" width="80%" align="center">
 					<tr class="title1">
-						<td colspan="2">老师信息</td>
+						<td colspan="2">教师信息</td>
 					</tr>
 					<tr>
 						<td>工号</td>

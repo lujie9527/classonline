@@ -41,7 +41,7 @@ public interface JobMapper {
     List<Job> getJobsByBanjiId(int banjiId);
 
 
-
+    //学生提交作业
     @Insert("insert into stu_job2 (homework,finishTime,stuId,stuName,jobId) " +
             "values (#{homework},#{finishTime},#{stuId},#{stuName},#{jobId})")
 
@@ -61,7 +61,7 @@ public interface JobMapper {
     List<Job> findJobsByTeacherId(String teacherId, String jobTitle, int professionId, int banjiId);
 
 
-
+//根据作业编号查找学生作业
     @Select("select * from stu_job2 where jobId=#{jobId}")
 
     @Results({
@@ -136,6 +136,13 @@ public interface JobMapper {
 
     void updateState(@Param("state")Integer state,@Param("id") Integer id);
 
+    //通过作业ID获取截止提交时间
+    @Select("select lastTime from job2 where id=#{id}")
 
+    String getlastTime(Integer id);
+
+    @Select("select * from job2 where jobTitle=#{jobTitle}")
+
+    List<Job> findJobByJobTitle(String jobTitle);
 
 }

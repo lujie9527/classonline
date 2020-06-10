@@ -28,14 +28,14 @@ public class BanjiServiceImpl implements BanjiService {
 	}
 	@Transactional
 	@Override
-	public void addBanji(String name, String description, String professionId) {
-		banjiMapper.addBanji(name,description,professionId);
+	public void addBanji(String name, String professionId) {
+		banjiMapper.addBanji(name,professionId);
 		
 	}
 	@Transactional
 	@Override
-	public void updateBanji(Integer id, String name, String description, String professionId) {
-		banjiMapper.updateBanji(id,name,description,professionId);
+	public void updateBanji(Integer id, String name, String professionId) {
+		banjiMapper.updateBanji(id,name,professionId);
 	}
 	@Transactional
 	@Override

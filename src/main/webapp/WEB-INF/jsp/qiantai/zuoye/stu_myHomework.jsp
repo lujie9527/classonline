@@ -12,6 +12,11 @@
     <meta charset="UTF-8">
     <title>我的作业</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <style>
+        table tbody tr td{
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 
@@ -44,9 +49,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -68,16 +79,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -96,6 +102,7 @@
     </c:if>
 </nav>
 
+<h2 style="text-align: center">我的作业</h2>
 <table class="table table-bordered" align="center">
     <thead>
         <th>序号</th>

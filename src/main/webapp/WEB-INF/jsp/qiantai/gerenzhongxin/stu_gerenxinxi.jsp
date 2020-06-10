@@ -102,29 +102,20 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">答题成绩</label>
+            <label class="layui-form-label">在线考试成绩</label>
             <div class="layui-input-inline">
                 <input type="text" name="grade" autocomplete="off" class="layui-input" value="${user.grade}" readonly>
             </div>
         </div>
     </div>
-    <!-- </form>  -->
-    <!-- 页脚-->
-<%--    <footer class="footer navbar-fixed-bottom " style="background:#2A2D34">--%>
-<%--        <div class="container">--%>
-<%--            <div class="copyright">--%>
-<%--                <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </footer>--%>
+
     <script src="${pageContext.request.contextPath }/layui/layui.js"></script>
     <script>
         layui.use(['form', 'layedit', 'laydate', 'element', 'jquery'], function () {
             var form = layui.form;
             layer = layui.layer,
-                element = layui.element,
-                $ = layui.jquery;
-            //各种基于事件的操作，下面会有进一步介绍
+            element = layui.element,
+            $ = layui.jquery;
             $(document).on('click', '#updatePwd', function () {
 
                 var newPwd = window.prompt("请输入新密码");
@@ -140,7 +131,6 @@
                 });
             });
         });
-
     </script>
 
 

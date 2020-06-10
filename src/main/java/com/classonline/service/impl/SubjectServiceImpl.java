@@ -58,9 +58,15 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public void deleteSubject(Integer subjectId){
-            subjectMapper.deleteSubject(Integer.valueOf(subjectId));
+            subjectMapper.deleteSubject(subjectId);
     }
 
+
+    public void deleteSubjectByList(String[] subjectIds){
+        for (String subjectId:subjectIds){
+            subjectMapper.deleteSubject(Integer.valueOf(subjectId));
+        }
+    }
 
     @Override
     public void subjectUpload(Integer id, String grade){
@@ -70,8 +76,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public int accountResult(String stuId, ArrayList<String> studentAnswers){
+        System.out.println("stuID:"+stuId);
+        System.out.println("studentAnswers:"+studentAnswers);
         int generalPoint = 0;
-        for (int i = 0;i < 20;i++){
+        for (int i = 0;i < studentAnswers.size();i++){
             String rightAnswer = subjectMapper.getSubAnswerById(i+1);
             if ((rightAnswer.equals(studentAnswers.get(i)))){
                 generalPoint +=5;

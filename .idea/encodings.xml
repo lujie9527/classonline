@@ -2,6 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lib/jodconverter-2.2.1.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/jodconverter-cli-2.2.2.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lib/jodconverter-core-3.0-beta-3-patched.jar" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/images/!.gif" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/images/DefaultDocs.gif" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/qiantai/subjectTest/images/Login_but.gif" charset="GBK" />
@@ -143,8 +146,11 @@
     <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/images/logo_foot.jpg" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/images/logo_hearder.jpg" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/easyui/jquery.min.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/js/pdfobject.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/js/pdfobject.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/js/pdfobject.min.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/js/pdfobject.min.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/js/tinymce.min.js" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/js/vblog.js" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/webapp/tinymce" charset="GBK" />
   </component>
 </project>

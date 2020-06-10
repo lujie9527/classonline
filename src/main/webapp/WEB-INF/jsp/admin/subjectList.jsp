@@ -25,6 +25,7 @@
     <script type="text/javascript">
         function doAdd() {
             //在添加之前把数据清空
+
             $('#subjectForm').form('clear');
             $("#subjectId").val("");
             // $("#subjectTitle").val("");
@@ -35,7 +36,8 @@
             // $("#subjectOptionAnswer").val("");
             // $("#subjectOptionParse").val("");
             //将添加窗口打开
-            $("#subjecId").removeAttr("readonly");
+            $("#bianhao").hide();
+            $("#subjectId").removeAttr("readonly");
             $('#addsubjectWindow').window("open");
         }
 
@@ -50,19 +52,18 @@
             }
             $.messager.confirm('提示', '你确定要删除吗?', function (r) {
                 if (r) {
-                    var ids = [];
+                    var subjectIds = [];
                     $.each(array, function (index, item) {
-                        ids.push(item.id);
+                        subjectIds.push(item.subjectId);
                     });
                     //ajax提交数组参数，必须序列号
-                    $.post("${pageContext.request.contextPath}/admin/subject/delete", {"ids": ids}, function (data) {
+                    $.post("${pageContext.request.contextPath}/admin/subject/delete", {"subjectIds": subjectIds}, function (data) {
                         if (data == "200") {
                             location.href = "${pageContext.request.contextPath}/admin/subject/list";
 
                         }
                     });
                 }
-                ;
             });
         }
 
@@ -82,7 +83,7 @@
         // 定义列
         var columns = [[{
             field: 'f',
-            checkbox: true,
+            checkbox: true
         }, {
             field: 'subjectId',
             title: '题目编号',
@@ -97,10 +98,7 @@
             field: 'subjectOptionA',
             title: '选项A',
             width: 120,
-            align: 'center',
-            // formatter: function (value, row) {
-            //     return row["profession"]["name"];
-            // }
+            align: 'center'
         }, {
             field: 'subjectOptionB',
             title: '选项B',
@@ -148,17 +146,17 @@
                         $("#url").val(result);
                     }
                 });
-            })
-
-
-            $('#subjectId').combobox({
-                url: '${pageContext.request.contextPath}/admin/subject/list/json',
-                valueField: 'subjectId',
-                textField: 'subjectTitle',
-                onSelect: function (rec) {
-
-                }
             });
+
+
+            <%--$('#subjectId').combobox({--%>
+            <%--    url: '${pageContext.request.contextPath}/admin/subject/list/json',--%>
+            <%--    valueField: 'subjectId',--%>
+            <%--    textField: 'subjectId',--%>
+            <%--    onSelect: function (rec) {--%>
+
+            <%--    }--%>
+            <%--});--%>
 
 
             $('#grid').datagrid({
@@ -189,20 +187,27 @@
 
         });
 
-        // 修改 收货标准数据，双击修改，修改必须有id（隐藏)
+        // 双击修改，修改必须有id（隐藏)
         function doDblClickRow(rowIndex, rowData) {
             //将添加窗口弹出
+
             $("#addsubjectWindow").panel({
                 title: "修改题目信息"
             });
             $("#addsubjectWindow").window('open');
-            $("#isUpdate").val("1");
             //将数据回显,查看easyui的帮助文档
-            $("#subjectTitle").val(rowData.name);
-            $("#subjectOptionA").val(rowData.description);
-            $("#id").val(rowData.id);
-            $("#id").attr("readonly", "readonly");
+            $("#isUpdate").val("1");
+            $("#subjectId").val(rowData.subjectId);
+            $("#subjectId").attr("readonly", "readonly");
             $("#bianhao").show();
+            $("#subjectTitle").val(rowData.subjectTitle);
+            $("#subjectOptionA").val(rowData.subjectOptionA);
+            $("#subjectOptionB").val(rowData.subjectOptionB);
+            $("#subjectOptionC").val(rowData.subjectOptionC);
+            $("#subjectOptionD").val(rowData.subjectOptionD);
+            $("#subjectAnswer").val(rowData.subjectAnswer);
+            $("#subjectParse").val(rowData.subjectParse);
+
         }
 
         //提交表单
@@ -235,38 +240,43 @@
     </div>
     <div region="center" style="overflow:auto;padding:5px;" border="false">
         <form id="subjectForm" action="${pageContext.request.contextPath }/admin/subject/addSub" method="post">
+
             <table class="table-edit" width="80%" align="center">
                 <tr class="title1">
                     <td colspan="2">题目信息</td>
                 </tr>
-                <input type="hidden" id="id" name="id">
+                <input type="hidden" id="isUpdate" name="isUpdate">
+                <tr id="bianhao">
+                    <td>题目编号</td>
+                    <td><input id="subjectId" type="text" name="subjectId" class="easyui-validatebox"  /></td>
+                </tr>
                 <tr>
                     <td>题目标题</td>
-                    <td><input id="subjectTitle" type="text" name="name" class="easyui-validatebox" required="true" /></td>
+                    <td><input id="subjectTitle" type="text" name="subjectTitle" class="easyui-validatebox" required="true" /></td>
                 </tr>
                 <tr>
                     <td>选项A</td>
-                    <td><input id="subjectOptionA" type="text" name="gender" class="easyui-validatebox"  /></td>
+                    <td><input id="subjectOptionA" type="text" name="subjectOptionA" class="easyui-validatebox"  /></td>
                 </tr>
                 <tr>
                     <td>选项B</td>
-                    <td><input id="subjectOptionB" type="text" name="age" class="easyui-numberbox" /></td>
+                    <td><input id="subjectOptionB" type="text" name="subjectOptionB" class="easyui-validatebox" /></td>
                 </tr>
                 <tr>
                     <td>选项C</td>
-                    <td><input id="subjectOptionC" type="text" name="education" class="easyui-validatebox" /></td>
+                    <td><input id="subjectOptionC" type="text" name="subjectOptionC" class="easyui-validatebox" /></td>
                 </tr>
                 <tr>
                     <td>选项D</td>
-                    <td><input id="subjectOptionD" type="text" name="job" class="easyui-validatebox" /></td>
+                    <td><input id="subjectOptionD" type="text" name="subjectOptionD" class="easyui-validatebox" /></td>
                 </tr>
                 <tr>
                     <td>答案</td>
-                    <td><input id="subjectAnswer" type="text" name="job" class="easyui-validatebox" /></td>
+                    <td><input id="subjectAnswer" type="text" name="subjectAnswer" class="easyui-validatebox" /></td>
                 </tr>
                 <tr>
                     <td>解析</td>
-                    <td><input id="subjectParse" type="text" name="job" class="easyui-validatebox" /></td>
+                    <td><input id="subjectParse" type="text" name="subjectParse" class="easyui-validatebox" /></td>
                 </tr>
             </table>
         </form>

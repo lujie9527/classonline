@@ -18,12 +18,12 @@ public interface ProfessionMapper {
 	@Select("select * from profession where id=#{id}")
 	Profession getProfessionById(int id);
 
-	@Insert("insert into profession (name,introduction) values (#{name},#{introduction})")
-	void addProfession(@Param("name")String name,@Param("introduction") String introduction);
+	@Insert("insert into profession (name) values (#{name})")
+	void addProfession(@Param("name")String name);
 
 	@Delete("delete from profession where id=#{id}")
 	void deleteProfession(int id);
 
-	@Update("update profession set name=#{name} , introduction=#{introduction} where id=#{id}")
-	void updateProfession(@Param("id")int id,@Param("name") String name,@Param("introduction") String introduction);
+	@Update("update profession set name=#{name} where id=#{id}")
+	void updateProfession(@Param("id")int id,@Param("name") String name);
 }

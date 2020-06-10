@@ -24,7 +24,7 @@ public interface LiuyanService {
 	 */
 	List<Pinglun2> getStuPingluns(int id);
 
-	Liuyan getLiuyanById(int id);
+	Liuyan getLiuyanById(Integer id);
 
 	void addLiuyan(String content, String title,String stuId);
 

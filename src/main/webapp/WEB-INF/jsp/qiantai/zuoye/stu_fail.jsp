@@ -1,35 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%--
+  Created by IntelliJ IDEA.
+  User: 11192
+  Date: 2020/6/7
+  Time: 19:38
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>资料详情</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8;"/>
-    <meta http-equiv="“X-UA-Compatible”" content="“chrome=1″"/>
-    <link type="text/css" rel="stylesheet" href="./css/jiaoxueshipin.css"/>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jiaoxueshipin.js"></script>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <style>
-        .copyright p {
-            height: 50px;
-            font-size: 12px;
-            color: #72757A;
-            line-height: 53px;
-            text-align: center;
-        }
+    <title>无法提交</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
 
-        .copyright p a {
-            color: #72757A;
-            text-decoration: none;
+    <style type="text/css">
+        div{
+            width:300px;height:200px;
+            margin: 50px;
+            border: 1px solid red;
+            text-align: center;
+            line-height: 200px;
+            overflow: hidden;
         }
     </style>
 </head>
-<body style="color:#333; background:#ffffff">
+<body>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
@@ -112,22 +108,19 @@
     </c:if>
 </nav>
 
-    <br/>
-    <div class="container" style="min-height:500px;">
-        <c:forEach items="${docDetails }" var="docDetail">
-            <div class="card" style="margin:10px;">
-                <div class="card-body">
-                    <h4 class="card-title">${docDetail.name }</h4>
-                    <p class="card-text">${docDetail.description }</p>
-                    <span class="card-text">${docDetail.size }</span>
-                    <a href="${pageContext.request.contextPath }/download/doc?id=${docDetail.id }&filename=${docDetail.url}"
-                       class="card-link">下载</a>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-    <br/>
+<div class="container col-md-5 col-md-offset-2" >
+    <h1>
+        <br>
+        该作业已过期！无法提交！
+    </h1>
 
+    <button style="width: 80px;margin: 30px 0px" type="button" class="btn btn-default" onclick="window.location.href='${pageContext.request.contextPath}/job/stuGetJobList'">返回</button>
+
+</div>
+
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-
     <link href="https://vjs.zencdn.net/7.7.6/video-js.css" rel="stylesheet">
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
@@ -44,6 +43,7 @@
     </style>
 </head>
 <body style="color:#333; background:#f6f6f6">
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
@@ -62,11 +62,29 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">提交作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/stuHomework">我的作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw">在线做题</a>
                 </div>
             </li>
         </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
+                </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
+            </li>
+        </c:if>
+
         <!-- Dropdown -->
         <c:if test="${isStu==1}">
             <li class="nav-item dropdown ">
@@ -85,16 +103,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -112,7 +125,6 @@
         </ul>
     </c:if>
 </nav>
-
 
     <br/>
     <div class="container justify-content-center">
@@ -142,15 +154,6 @@
     </div>
     <br/>
 
-
-    <!-- 页脚-->
-    <footer class="footer navbar-fixed-bottom " style="background:#2A2D34">
-        <div class="container">
-            <div class="copyright">
-                <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
-            </div>
-        </div>
-    </footer>
     <script src="https://vjs.zencdn.net/7.7.6/video.js"></script>
 </body>
 </html>

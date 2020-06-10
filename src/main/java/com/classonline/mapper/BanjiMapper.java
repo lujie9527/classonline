@@ -28,11 +28,11 @@ public interface BanjiMapper {
 	@Select("select * from banji")
 	List<Banji> getBanjis();
 
-	@Insert("insert into banji (name,description,professionId) values (#{name},#{description},#{professionId})")
-	void addBanji(@Param("name")String name,@Param("description") String description,@Param("professionId") String professionId);
+	@Insert("insert into banji (name,professionId) values (#{name},#{professionId})")
+	void addBanji(@Param("name")String name,@Param("professionId") String professionId);
 
 	@UpdateProvider(type=SqlProvider.class,method="getSqlForUpdateBanji")
-	void updateBanji( Integer id, String name, String description, String professionId);
+	void updateBanji( Integer id, String name, String professionId);
 
 	@Delete("delete from banji where id=#{id}")
 	void deleteBanji(Integer id);

@@ -19,14 +19,22 @@ public class VideoServiceImpl implements VideoService {
 
 	@Autowired
 	private VideoMapper videoMapper;
+
+	///获取视频列表
 	@Override
 	public List<Video> getAllVideos(String keyword) {
 		return videoMapper.getAllVideos(keyword);
 	}
+
+
+	//根据视频编号播放视频
 	@Override
 	public Video getVideoById(int id) {
 		return videoMapper.getVideoById(id);
 	}
+
+
+	//更新播放量
 	@Transactional
 	@Override
 	public void updateVideoPlayNum(HttpServletRequest request,int videoId) {
@@ -42,6 +50,8 @@ public class VideoServiceImpl implements VideoService {
 			videoMapper.updatePlayNum(videoId,playNum);
 		}
 	}
+
+	//删除视频（管理员）
 	@Transactional
 	@Override
 	public void deleteVideo(String[] ids) {
@@ -49,6 +59,8 @@ public class VideoServiceImpl implements VideoService {
 			videoMapper.deleteVideo(Integer.valueOf(id));
 		}
 	}
+
+	//上传视频
 	@Transactional
 	@Override
 	public void addVideo(String name, String videoUrl, String imageUrl, String teacherId, String description) {

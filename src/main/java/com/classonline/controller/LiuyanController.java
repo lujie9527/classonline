@@ -1,10 +1,13 @@
 package com.classonline.controller;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,7 @@ import com.classonline.bean.Pinglun2;
 import com.classonline.bean.Student;
 import com.classonline.bean.Teacher;
 import com.classonline.service.LiuyanService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/liuyan")
@@ -46,8 +50,8 @@ public class LiuyanController {
 	}
 	
 	//根据留言id查询所有评论
-	@RequestMapping("/id/{id}")
-	public String getPingluns(@PathVariable ("id")int id,Model model) {
+	@RequestMapping("/id")
+	public String getPingluns(@Param("id") Integer id, Model model) {
 		Liuyan liuyan=liuyanService.getLiuyanById(id);
 		
 		List<Pinglun> teacherPingluns=liuyanService.getTeacherPingluns(id);
@@ -60,27 +64,32 @@ public class LiuyanController {
 		
 	}
 	//添加留言
-	@PostMapping("/add")
-	@ResponseBody
+//	@PostMapping("/add")
+//	@ResponseBody
+	@RequestMapping("/add")
 	public String addLiuyan(HttpServletRequest request, String content, String title) {
 		Student stu=(Student) request.getSession().getAttribute("user");
 		liuyanService.addLiuyan(content,title,stu.getId());
-		return "200";
+		return "redirect:/liuyan/all";
 	}
 	//添加评论
-	@PostMapping("/addPinglun")
-	@ResponseBody
-	public String addPinglun(HttpServletRequest request,String content,Integer liuyanId) {
+	@RequestMapping("/addPinglun")
+	public String addPinglun(HttpServletRequest request,RedirectAttributes redirectAttributes,
+							 String content,Integer liuyanId) {
+		System.out.println("留言的ID："+liuyanId);
+		System.out.println("留言的内容："+content);
 		HttpSession session = request.getSession();
 		Integer flag=(Integer) session.getAttribute("isStu");
-		if(flag!=null) {
+		if(flag==1) {
 			Student stu=(Student) session.getAttribute("user");
 			liuyanService.addPinglun2(content,liuyanId,stu.getId());
-			return "200";
+			redirectAttributes.addAttribute("id",liuyanId);
+			return "redirect:/liuyan/id";
 		}else {
 			Teacher teacher=(Teacher) session.getAttribute("user");
 			liuyanService.addPinglun(content,liuyanId,teacher.getId());
-			return "200";
+			redirectAttributes.addAttribute("id",liuyanId);
+			return "redirect:/liuyan/id";
 		}
 	}
 }

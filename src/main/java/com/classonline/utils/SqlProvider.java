@@ -132,14 +132,10 @@ public class SqlProvider {
 		System.out.println(sb.toString());
 		return sb.toString();
 	}
-	public String getSqlForUpdateBanji(Integer id, String name, String description, String professionId) {
+	public String getSqlForUpdateBanji(Integer id, String name, String professionId) {
 		StringBuffer sb=new StringBuffer("update banji");
 		if(!StringUtils.isBlank(name)) {
 			sb.append(" name='"+name+"'");
-			sb.append(" , ");
-		}
-		if(!StringUtils.isBlank(description)) {
-			sb.append(" description='"+description+"'");
 			sb.append(" , ");
 		}
 		if(!StringUtils.isBlank(professionId)) {

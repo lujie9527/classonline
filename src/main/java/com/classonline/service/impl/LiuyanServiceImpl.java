@@ -34,7 +34,7 @@ public class LiuyanServiceImpl implements LiuyanService {
 	}
 
 	@Override
-	public Liuyan getLiuyanById(int id) {
+	public Liuyan getLiuyanById(Integer id) {
 		return liuyanMapper.getLiuyanById(id);
 	}
 

@@ -4,10 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>网络教学系统</title>
+    <title>公告列表</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/easyui.css"/>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -19,7 +20,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/new.css"/>
+
 </head>
 <body>
 
@@ -41,11 +42,29 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">提交作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/stuHomework">我的作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw">在线做题</a>
                 </div>
             </li>
         </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
+                </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
+            </li>
+        </c:if>
+
         <!-- Dropdown -->
         <c:if test="${isStu==1}">
             <li class="nav-item dropdown ">
@@ -64,16 +83,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -92,10 +106,7 @@
     </c:if>
 </nav>
 
-
-    <div class="jumbotron" style="padding:2rem 2rem; text-align:center;">
-        <span style=" font-size:20px; color:#525252">系统通知公告</span>
-    </div>
+<h2 style="text-align: center">系统通知公告</h2>
     <!--公告通知 -->
     <div class="container">
         <div class="row justify-content-end">
@@ -103,7 +114,7 @@
                 <div class="form-inline">
                     <label>查询到<span style="color:#f00">${pageInfo.total}</span>条记录</label>&nbsp;&nbsp;
                     <input type="text" class="form-control" id="usr" name="keyWord" value="${keyWord }"/>
-                    <button type="submit" class="btn btn-light">查询</button>
+                    <button type="submit" class="btn btn-info">查询</button>
                 </div>
             </form>
         </div>
@@ -117,7 +128,6 @@
                 </div>
                 <div class="col text-right" style="margin-right: 100px;">${notice.noticeTime}</div>
             </div>
-            <hr/>
         </c:forEach>
     </div>
 
@@ -163,14 +173,7 @@
         </ul>
     </div>
     <br>
-    <!-- 页脚-->
-    <div class="footer" style="position:fixed; height:60px;width:100%;bottom:0px;">
-        <div class="foot">
-            <div class="copyright">
-                <p>copyright © 2020 <a href="http://http://www.guit.edu.cn//" target="_blank">桂林电子科技大学信息科技学院</a></p>
-            </div>
-        </div>
-    </div>
+
 
 </body>
 </html>

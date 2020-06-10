@@ -12,7 +12,14 @@
     <meta charset="UTF-8">
     <title>学生查看作业列表</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
-
+    <style>
+        div{
+            text-align: center;
+        }
+        table{
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
@@ -45,9 +52,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -69,16 +82,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -96,35 +104,34 @@
         </ul>
     </c:if>
 </nav>
-<div class="container" style="margin: auto">
-<table class="table table-responsive">
+
+<h2 style="text-align: center">作业列表</h2>
+<div class="container" style="margin: 0px">
+<table class="table table-responsive" style="margin-left: 25%">
     <thead>
-    <tr>
-        <th style="text-align: center">作业编号</th>
-        <th style="text-align: center">作业标题</th>
-        <th style="text-align: center">专业</th>
-        <th style="text-align: center">班级</th>
-        <th style="text-align: center">发布时间</th>
-        <th style="text-align: center">截止时间</th>
-        <th style="text-align: center">做题</th>
-    </tr>
+        <tr>
+            <th style="text-align: center">作业编号</th>
+            <th style="text-align: center">作业标题</th>
+            <th style="text-align: center">专业</th>
+            <th style="text-align: center">班级</th>
+            <th style="text-align: center">发布时间</th>
+            <th style="text-align: center">截止时间</th>
+            <th style="text-align: center">做题</th>
+        </tr>
     </thead>
 
     <tbody>
-    <c:forEach items="${jobs}" var="job">
+        <c:forEach items="${jobs}" var="job">
             <tr>
-
-                    <td style="text-align: center">${job.id}</td>
-                    <td>${job.jobTitle}</td>
-                    <td style="text-align: center">${job.profession.name}</td>
-                    <td style="text-align: center">${job.banji.name}</td>
-                    <td style="text-align: center">${job.uploadTime}</td>
-                    <td style="text-align: center">${job.lastTime}</td>
-                    <td><a href="${pageContext.request.contextPath}/job/doJob?jobId=${job.id}">进入做题</a></td>
-
+                <td style="text-align: center">${job.id}</td>
+                <td>${job.jobTitle}</td>
+                <td style="text-align: center">${job.profession.name}</td>
+                <td style="text-align: center">${job.banji.name}</td>
+                <td style="text-align: center">${job.uploadTime}</td>
+                <td style="text-align: center">${job.lastTime}</td>
+                <td><a href="${pageContext.request.contextPath}/job/doJob?jobId=${job.id}">进入做题</a></td>
             </tr>
-    </c:forEach>
-
+        </c:forEach>
     </tbody>
 </table>
 

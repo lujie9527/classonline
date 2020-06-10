@@ -51,7 +51,7 @@
 				       		location.href="${pageContext.request.contextPath}/admin/student/list";
 			       		}
 			       });
-			};
+			}
 		});
 	}
 	//工具栏
@@ -70,7 +70,7 @@
 	// 定义列
 	var columns = [ [ {
 		field : 'f',
-		checkbox : true,
+		checkbox : true
 	},{
 		field : 'id',
 		title : '学号',
@@ -90,13 +90,13 @@
 		field : 'age',
 		title : '年龄',
 		width : 100,
-		align : 'center',
+		align : 'center'
 		
 	}, {
 		field : 'ruxueTime',
 		title : '入学时间',
 		width : 160,
-		align : 'center',
+		align : 'center'
 		
 	},{
 		field : 'banji.id',
@@ -153,7 +153,7 @@
 		
 		
 		
-		// 员工数据表格
+
 		$('#grid').datagrid( {
 			iconCls : 'icon-forward',
 			fit : true,
@@ -233,7 +233,7 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form id="delBacth"  method="post"><!-- -action="${pageContext.request.contextPath }/delStaffServlet" -->
+	<form id="delBacth"  method="post">
 	    <div region="center" border="false">
 	    	<table id="grid">
 	    		<input type="hidden" name="id" value="id">

@@ -144,9 +144,9 @@
 			/* onDblClickRow : doDblClickRow */
 		});
 		
-		// 添加员工窗口
+		// 添加窗口
 		$('#addStaffWindow').window({
-            title: '添加员工信息',
+            title: '添加视频信息',
             width: 400,
             modal: true,
             shadow: true,
@@ -188,7 +188,7 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form id="delBacth"  method="post"><!-- -action="${pageContext.request.contextPath }/delStaffServlet" -->
+	<form id="delBacth"  method="post">
 	    <div region="center" border="false">
 	    	<table id="grid">
 	    		<input type="hidden" name="id" value="id">

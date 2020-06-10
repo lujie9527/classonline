@@ -37,7 +37,8 @@
         -->
     </style>
 </head>
-<body onload="sT()">
+<body>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
@@ -56,11 +57,29 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">作业</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">下载试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw/">在线做题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/all">提交作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/stuHomework">我的作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/sub/onlinehw">在线做题</a>
                 </div>
             </li>
         </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
+                </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
+            </li>
+        </c:if>
+
         <!-- Dropdown -->
         <c:if test="${isStu==1}">
             <li class="nav-item dropdown ">
@@ -79,16 +98,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">管理试题</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -132,7 +146,7 @@
         <td colspan="3" bgcolor="#999999" class="STYLE4">选择题(每小题5分，共20题)</td>
     </tr>
     <!--题目开始-->
-    <div action="" method="post" id="subForm" name="subForm">
+    <div>
         <c:forEach items="${subjectList}" var="subject" varStatus="sta">
             <tr>
                 <input type="hidden" name="subjectId"
@@ -166,15 +180,17 @@
         <tr>
             <td colspan="3">
                 <div align="center">
-                    <button class="layui-btn" id="submitTest" name="submitTest">提交试卷</button>
+                    <button class="layui-btn" type="submit" id="Test" name="Test">提交试卷</button>
                 </div>
                 <div name="rs" id="rs"></div>
             </td>
         </tr>
     </div>
 </table>
+
+
 <script>
-    $("button[name='submitTest']").click(function () {
+    $("button[name='Test']").click(function () {
         var data = [];
 
         $("input[name^='subjectAnswer']").each(function () {
@@ -182,7 +198,6 @@
                 data.push($(this).val());
             }
         });
-
 
         $.ajax({
             type: "POST",
@@ -200,72 +215,77 @@
             }
         });
 
-    })
+    });
 </script>
-
 <%--<script>--%>
-<%--    function getSubAnswer(obj,subjectAnswers) {--%>
-<%--        for(var i = 0;i<20;i++){--%>
-<%--            if (obj.option[i].selected){--%>
-<%--                subjectAnswers.push(obj.options[i].value);--%>
+<%--    var ksTime; //定义考试时间以分钟计算--%>
+<%--    ksTime = 1;//设置时间 这里设置为每1个单位代表是60秒--%>
+<%--    if(readCookie("ss")==""){--%>
+<%--        setCookie("ss",new Date(),ksTime/60);--%>
+<%--    }--%>
+<%--    function sT(){--%>
+<%--        var tti = new Date();--%>
+<%--        var lt  = parseInt((tti-new Date(readCookie("ss")))/1000)  //转化成秒--%>
+<%--        if((ksTime*60-lt)<0){--%>
+<%--            setCookie("ss",new Date(),0);--%>
+<%--            alert("考试时间到!\n即将提交试卷!");--%>
+<%--            document.getElementById("Test").click();--%>
+
+<%--        }else{--%>
+<%--            lm = Math.floor(lt / 60);	//lm为分钟--%>
+<%--            ls = lt % 60;	//ls为秒钟--%>
+<%--            allY = ksTime*60-lt;	//allY为剩余时间，秒为单位--%>
+<%--            ym = Math.floor(allY / 60);		//剩余时间的分钟--%>
+<%--            ys = allY % 60;		//剩余时间的秒钟--%>
+<%--            document.getElementById("tTime").innerHTML = "考试已经开始了" + lm + "分" + ls + "秒" + ",剩余"  + ym + "分" + ys + "秒";--%>
+<%--            var ttt = setTimeout("sT()",1000);--%>
+<%--        }--%>
+<%--    }--%>
+<%--    function readCookie(name) {--%>
+<%--        var cookieValue = "";--%>
+<%--        var search = name + "=";--%>
+<%--        if(document.cookie.length > 0) {--%>
+<%--            offset = document.cookie.indexOf(search);--%>
+<%--            if (offset != -1) {--%>
+<%--                offset += search.length;--%>
+<%--                end = document.cookie.indexOf(";", offset);--%>
+<%--                if (end == -1){--%>
+<%--                    end = document.cookie.length;--%>
+<%--                }--%>
+<%--                cookieValue = document.cookie.substring(offset, end)--%>
 <%--            }--%>
 <%--        }--%>
-<%--        return subjectAnswers;--%>
+<%--        return cookieValue;--%>
+<%--    }--%>
+<%--    function setCookie(name, value, hours) {--%>
+<%--        var expire = "";--%>
+<%--        if(hours != null) {--%>
+<%--            expire = new Date((new Date()).getTime() + hours * 3600000);--%>
+<%--            expire = "; expires=" + expire.toGMTString();--%>
+<%--        }--%>
+<%--        document.cookie = name + "=" + value + expire;--%>
 <%--    }--%>
 <%--</script>--%>
+<script>
+    var maxtime = 60*120;
+    function CountDown() {
+        if(maxtime>=0){
+            minutes = Math.floor(maxtime/60);
+            seconds = Math.floor(maxtime%60);
+            msg = "距离考试结束还剩"+minutes+"分"+seconds+"秒";
+            document.getElementById("tTime").innerHTML = msg;
+            --maxtime;
+        }else{
+            clearInterval(tTime);
+            alert("时间到！将自动提交试卷！");
+            document.getElementById("Test").click();
 
-<script type="text/javascript">
-    var ksTime; //定义考试时间以分钟计算
-    ksTime = 120;//设置时间 这里设置为每1个单位代表是60秒
-    if (readCookie("ss") == "") {
-        setCookie("ss", new Date(), ksTime / 60);
-    }
-
-    function sT() {
-        var tti = new Date();
-        var lt = parseInt((tti - new Date(readCookie("ss"))) / 1000)  //转化成秒
-        if ((ksTime * 60 - lt) < 0) {
-            setCookie("ss", new Date(), 0);
-            alert("考试时间到!\n即将提交试卷!");
-            document.forms[0].submit();
-        } else {
-            lm = Math.floor(lt / 60);	//lm为分钟
-            ls = lt % 60;	//ls为秒钟
-            allY = ksTime * 60 - lt;	//allY为剩余时间，秒为单位
-            ym = Math.floor(allY / 60);		//剩余时间的分钟
-            ys = allY % 60;		//剩余时间的秒钟
-            document.getElementById("tTime").innerHTML = "考试已经开始了" + lm + "分" + ls + "秒" + ",剩余" + ym + "分" + ys + "秒";
-            var ttt = setTimeout("sT()", 1000);
         }
-    }
 
-    function readCookie(name) {
-        var cookieValue = "";
-        var search = name + "=";
-        if (document.cookie.length > 0) {
-            offset = document.cookie.indexOf(search);
-            if (offset != -1) {
-                offset += search.length;
-                end = document.cookie.indexOf(";", offset);
-                if (end == -1) {
-                    end = document.cookie.length;
-                }
-                cookieValue = document.cookie.substring(offset, end)
-            }
-        }
-        return cookieValue;
     }
+    tTime = setInterval("CountDown()",1000);
 
-    function setCookie(name, value, hours) {
-        var expire = "";
-        if (hours != null) {
-            expire = new Date((new Date()).getTime() + hours * 3600000);
-            expire = "; expires=" + expire.toGMTString();
-        }
-        document.cookie = name + "=" + value + expire;
-    }
 </script>
-
 
 </body>
 </html>

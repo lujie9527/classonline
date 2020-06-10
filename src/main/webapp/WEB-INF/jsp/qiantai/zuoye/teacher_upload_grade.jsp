@@ -44,9 +44,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -68,16 +74,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -96,35 +97,37 @@
     </c:if>
 </nav>
 
-<table class="table table-responsive">
-    <thead>
-    <td>序号</td>
-    <th>学号</th>
-    <th>姓名</th>
-    <th>作答</th>
-    <th>上交时间</th>
-    <th>得分</th>
-    </thead>
+<h2 style="text-align: center">批改作业</h2>
 
-    <tbody>
-
+<div class="container" style="margin: auto">
+    <table class="table table-bordered" >
+        <thead style="text-align: center">
+        <th>序号</th>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>作答</th>
+        <th>上交时间</th>
+        <th>得分</th>
+        <th>提交</th>
+        </thead>
+        <tbody>
         <c:forEach items="${stuJobList}" var="jobList">
-        <form action="${pageContext.request.contextPath}/job/uploadGrade?id=${jobList.id}" method="post">
-            <tr>
-                <td>${jobList.id}</td>
-                <td>${jobList.student.id}</td>
-                <td>${jobList.student.name}</td>
-                <td>${jobList.homework}</td>
-                <td>${jobList.finishTime}</td>
-                <td><input type="text" id="jobGrade" name="jobGrade"></td>
-                <td><button type="submit" class="btn btn-info">提交</button></td>
-            </tr>
-        </form>
+            <form action="${pageContext.request.contextPath}/job/uploadGrade?id=${jobList.id}" method="post">
+                <tr>
+                    <td style="text-align: center">${jobList.id}</td>
+                    <td style="text-align: center">${jobList.student.id}</td>
+                    <td style="text-align: center">${jobList.student.name}</td>
+                    <td>${jobList.homework}</td>
+                    <td style="text-align: center">${jobList.finishTime}</td>
+                    <td style="text-align: center"><input type="text" id="jobGrade" name="jobGrade"></td>
+                    <td style="text-align: center"><button type="submit" class="btn btn-info">提交</button></td>
+                </tr>
+            </form>
         </c:forEach>
+        </tbody>
+    </table>
+</div>
 
-
-    </tbody>
-</table>
 
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>

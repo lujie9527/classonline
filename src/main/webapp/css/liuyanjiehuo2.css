@@ -69,9 +69,7 @@ a:active {
 	clear:both;
 	visibility:hidden
 }
-.clearfix {
-	*zoom:1
-}
+
 .l {
 	float:left
 }
@@ -4506,10 +4504,10 @@ i {
 	padding-top:14px
 }
 .course-info-main .content {
-	float:left;
-	padding-top:2px;
-	width:100%
-}
+	 float:left;
+	 padding-top:2px;
+	 width:100%
+ }
 .course-info-main .content .ctit {
 	margin-bottom:6px;
 	font-weight:700;

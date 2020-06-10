@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.classonline.utils.JedisUtil;
+
 
 @Controller
 //这个注解是用来声明控制器的
@@ -40,8 +40,6 @@ public class AdminController {
 	private VideoService videoService;
 	@Autowired
 	private NoticeService noticeService;
-//	@Autowired
-//	private LinkService linkService;
 	@Autowired
 	private LiuyanService liuyanService;
 	@Autowired
@@ -60,6 +58,8 @@ public class AdminController {
 		}
 		return "/admin/index";
 	}
+
+
 	@RequestMapping("/login")
 	public String login(String name,String password,HttpServletRequest request) {
 		Admin admin=adminService.login(name,password);
@@ -71,11 +71,14 @@ public class AdminController {
 			return "/admin/login";
 		}
 	}
+
+
 	@RequestMapping("/loginOut")
 	public String loginOut(HttpServletRequest request) {
 		request.getSession().setAttribute("admin", null);
 		return "/admin/login";
 	}
+
 
 	@RequestMapping("/editpassword")
 	@ResponseBody
@@ -85,10 +88,12 @@ public class AdminController {
 		return "200";
 	}
 
+
 	@RequestMapping("/tip")
 	public String tip() {
 		return "/admin/tip";
 	}
+
 
 
 	// 学生信息列表
@@ -112,10 +117,9 @@ public class AdminController {
 //	value ：指定 name 属性的名称是什么，value 属性都可以默认不写
 //	required ：是否必须要有该参数，可以设置为【true】或者【false】
 //	defaultvalue ：设置默认值
-
 	public String addOrUpdate(Student stu,@RequestParam(value="isUpdate",required=false)Integer isUpdate,
 			@RequestParam("banjiId")Integer banjiId,@RequestParam("professionId") Integer professionId) {
-		
+		System.out.println("isUpdate:"+isUpdate);
 		if(isUpdate==null) {
 			studentService.addStudent(stu,banjiId,professionId);
 		}else {
@@ -131,6 +135,7 @@ public class AdminController {
 		studentService.deleteStudent(ids);
 		return "200";
 	}
+
 
 
 	//老师信息列表
@@ -183,6 +188,7 @@ public class AdminController {
 
 	@RequestMapping("/profession/addOrUpdate")
 	public String addOrUpdateProfession(Profession profession,@RequestParam(value="isUpdate",required=false)Integer isUpdate) {
+
 		if(isUpdate==null) {
 			professionService.addProfession(profession);
 		}else {
@@ -223,13 +229,12 @@ public class AdminController {
 
 	@RequestMapping("/banji/addOrUpdate")
 	public String addOrUpdateBanji(@RequestParam(value="id",required=false)Integer id,@RequestParam(value="name",required=false)String name
-			,@RequestParam(value="description",required=false)String description,
-			@RequestParam(value="professionId",required=false) String professionId
+			, @RequestParam(value="professionId",required=false) String professionId
 			,@RequestParam(value="isUpdate",required=false)Integer isUpdate) {
 		if(isUpdate==null) {
-			banjiService.addBanji(name,description,professionId);
+			banjiService.addBanji(name,professionId);
 		}else {
-			banjiService.updateBanji(id,name,description,professionId);
+			banjiService.updateBanji(id,name,professionId);
 		}
 		return "/admin/banjiList";
 	}
@@ -271,11 +276,13 @@ public class AdminController {
 		return "/admin/noticeList";
 	}
 
+
 	@RequestMapping("/notice/list/json")
 	@ResponseBody
 	public List<Notice> listNotices(){
 		return noticeService.findNoticeByKeyword("");
 	}
+
 
 	@RequestMapping("/notice/addOrUpdate")
 	public String addOrUpdateNotice(@RequestParam(value="title",required=false)String title,
@@ -290,11 +297,12 @@ public class AdminController {
 		}
 		return "/admin/noticeList";
 	}
+
+
 	@RequestMapping("/notice/delete")
 	@ResponseBody
 	public String deleteNotice(@RequestParam(value="ids[]") String [] ids) {
 		noticeService.deleteNotice(ids);
-		//存放在redis中
 		return "200";
 	}
 
@@ -302,7 +310,7 @@ public class AdminController {
 	//题目信息列表
 	@RequestMapping("/subject/list")
 	public String showListSubject(){
-		return "/qiantai/subjectTest/subManageByTea";
+		return "/admin/subjectList";
 	}
 
 	@RequestMapping("/subject/list/json")
@@ -311,12 +319,13 @@ public class AdminController {
 		return subjectService.getSubjects();
 	}
 
-//	@RequestMapping("/subject/delete")
-//	@ResponseBody
-//	public String deleteSubject(@RequestParam(value="ids[]") String [] ids){
-//		subjectService.deleteSubject(ids);
-//		return "200";
-//	}
+	@RequestMapping("/subject/delete")
+	@ResponseBody
+	public String deleteSubject(@RequestParam(value="subjectIds[]") String[] subjectIds){
+		System.out.println("subjectId:"+subjectIds);
+		subjectService.deleteSubjectByList(subjectIds);
+		return "200";
+	}
 
 	@RequestMapping("/subject/addSub")
 	public String addOrUpdateSubject(@RequestParam(value = "subjectId")Integer subjectId,
@@ -327,84 +336,46 @@ public class AdminController {
 									 @RequestParam(value="subjectOptionD") String subjectOptionD,
 									 @RequestParam(value="subjectAnswer") String subjectAnswer,
 									 @RequestParam(value="subjectParse") String subjectParse,
-									 @RequestParam(value = "isUpdate",required = false)Integer isUpdate,
-									 HttpServletRequest request) throws UnsupportedEncodingException {
+									 @RequestParam(value = "isUpdate",required=false)Integer isUpdate) {
 		//String keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"), "utf-8");
-		String subjectTitles = new String (request.getParameter("subjectTitle").getBytes("ISO-8859-1"),"utf-8");
-		String subjectOptionAs = new String (request.getParameter("subjectOptionA").getBytes("ISO-8859-1"),"utf-8");
-		String subjectOptionBs = new String (request.getParameter("subjectOptionB").getBytes("ISO-8859-1"),"utf-8");
-		String subjectOptionCs = new String (request.getParameter("subjectOptionC").getBytes("ISO-8859-1"),"utf-8");
-		String subjectOptionDs = new String (request.getParameter("subjectOptionD").getBytes("ISO-8859-1"),"utf-8");
-		String subjectAnswers = new String (request.getParameter("subjectAnswer").getBytes("ISO-8859-1"),"utf-8");
-		String subjectParses = new String (request.getParameter("subjectParse").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectTitles = new String (request.getParameter("subjectTitle").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectOptionAs = new String (request.getParameter("subjectOptionA").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectOptionBs = new String (request.getParameter("subjectOptionB").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectOptionCs = new String (request.getParameter("subjectOptionC").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectOptionDs = new String (request.getParameter("subjectOptionD").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectAnswers = new String (request.getParameter("subjectAnswer").getBytes("ISO-8859-1"),"utf-8");
+//		String subjectParses = new String (request.getParameter("subjectParse").getBytes("ISO-8859-1"),"utf-8");
 		System.out.println("adminController在这里的isupdate"+isUpdate);
 		if (isUpdate==null){
-			System.out.println(subjectTitles);
-			System.out.println(subjectOptionAs);
+			System.out.println(subjectTitle);
+			System.out.println(subjectOptionA);
 			System.out.println(subjectOptionB);
-			subjectService.addSubject(subjectTitles,subjectOptionAs,subjectOptionBs,subjectOptionCs,subjectOptionDs,
-					subjectAnswers,subjectParses);
+			subjectService.addSubject(subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+					subjectAnswer,subjectParse);
+
 		}else{
-			subjectService.updateSubject(subjectId,subjectTitles,subjectOptionAs,subjectOptionBs,subjectOptionCs,subjectOptionDs,
-					subjectAnswers,subjectParses);
+			subjectService.updateSubject(subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
+					subjectAnswer,subjectParse);
+
 		}
 
-		return "/qiantai/subjectTest/subManageByTea";
+		return "/admin/subjectList";
 	}
+
 	
-	
-	
-	
-	
-	
-//
-//	//7 友情链接
-//	@RequestMapping("/link/list")
-//	public String showListLink() {
-//		return "/admin/linkList";
-//	}
-//	@RequestMapping("/link/list/json")
-//	@ResponseBody
-//	public List<Link> listLinks(){
-//		return linkService.getAllLink();
-//	}
-//	@RequestMapping("/link/addOrUpdate")
-//	public String addOrUpdateLink(@RequestParam(value="name",required=false)String name
-//			,@RequestParam(value="url",required=false)String url
-//			,@RequestParam(value="imgUrl",required=false)String imgUrl
-//			,@RequestParam(value="id",required=false)Integer id
-//			,@RequestParam(value="isUpdate",required=false)Integer isUpdate) {
-//		if(isUpdate==null) {
-//			linkService.addLink(name,url,imgUrl);
-//		}else {
-//			linkService.updateLink(id,name,url,imgUrl);
-//		}
-//		return "/admin/linkList";
-//	}
-//	@RequestMapping("/link/delete")
-//	@ResponseBody
-//	public String deleteLink(@RequestParam(value="ids[]") String [] ids) {
-//		linkService.deleteLinks(ids);
-//		return "200";
-//	}
-//
-//
-	
-	
-	
-	
-	
-	
-	//8 留言
+
+	// 留言
 	@RequestMapping("/liuyan/list")
 	public String showListLiuyan() {
 		return "/admin/liuyanList";
 	}
+
 	@RequestMapping("/liuyan/list/json")
 	@ResponseBody
 	public List<Liuyan> listLiuyans(){
 		return liuyanService.getALlLiuyans();
 	}
+
 	@RequestMapping("/liuyan/delete")
 	@ResponseBody
 	public String deleteLiuyan(@RequestParam(value="ids[]") String [] ids) {
@@ -414,7 +385,7 @@ public class AdminController {
 	
 	
 	
-	//9 资料
+	// 课件资料
 	@RequestMapping("/doc/list")
 	public String showDocList() {
 		return "/admin/docList";
@@ -433,7 +404,7 @@ public class AdminController {
 	}
 	
 	
-	//10 作业
+	//作业
 	@RequestMapping("/job/list")
 	public String showJobList() {
 		return "/admin/jobList";
@@ -444,6 +415,8 @@ public class AdminController {
 		return jobService.getJobs();
 		
 	}
+
+
 	@RequestMapping("/job/delete")
 	@ResponseBody
 	public String deleteJob(@RequestParam(value="ids[]") String [] ids) {

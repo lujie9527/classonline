@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jodconverter-2.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jodconverter-2.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jodconverter-cli-2.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jodconverter-core-3.0-beta-3-patched.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

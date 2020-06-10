@@ -92,11 +92,6 @@
             formatter: function (value, row) {
                 return row["profession"]["name"];
             }
-        }, {
-            field: 'description',
-            title: '班级介绍',
-            width: 400,
-            align: 'left'
         }
         ]];
 
@@ -154,7 +149,6 @@
             $("#isUpdate").val("1");
             //将数据回显,查看easyui的帮助文档
             $("#name").val(rowData.name);
-            $("#description").val(rowData.description);
             $("#id").val(rowData.id);
             $("#id").attr("readonly", "readonly");
             $("#bianhao").show();
@@ -175,7 +169,7 @@
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
 
-//visibility使整个body不可见
+<%--visibility使整个body不可见--%>
 <form id="delBacth" method="post">
 <%--     action="${pageContext.request.contextPath }/delStaffServlet" --%>
     <div region="center" border="false">
@@ -209,12 +203,6 @@
                     <td>名称</td>
                     <td>
                         <input id="name" type="text" name="name" class="easyui-validatebox" required="true"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>介绍</td>
-                    <td>
-                        <input id="description" type="text" name="description" class="easyui-validatebox"/>
                     </td>
                 </tr>
                 <tr>

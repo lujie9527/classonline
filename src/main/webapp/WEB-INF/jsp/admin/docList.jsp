@@ -124,17 +124,18 @@
 		width : 300,
 		align : 'center'
 		
-	}, 
-	 {
-		field : 'url',
-		title : '下载',
-		width : 100,
-		align : 'center',
-		formatter:function(value,row){
-			return "点击下载";
-		}
-		
-	} ] ];
+	}
+	// ,
+	//  {
+	// 	field : 'url',
+	// 	title : '下载',
+	// 	width : 100,
+	// 	align : 'center',
+	// 	formatter:function(value,row){
+	// 		return "点击下载";
+	// 	}
+	//}
+	] ];
 	
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果

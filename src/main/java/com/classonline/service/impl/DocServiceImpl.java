@@ -17,22 +17,31 @@ public class DocServiceImpl implements DocService {
 
 	@Autowired
 	private DocMapper docMapper;
+
 	@Override
 	public List<Doc> getAllDocs(String keyword) {
 		return docMapper.getAllDocs(keyword);
 	}
+
+
 	@Override
 	public List<Docdetail> getDocDetailsById(int docId) {
 		return docMapper.getDocDetailsById(docId);
 	}
+
+
 	@Override
 	public void addDocDownload(int docdetailId, String stuId, String downTime) {
 		 docMapper.addDocDetailDownload(docdetailId,stuId,downTime);
 	}
+
+
 	@Override
 	public List<Docdetail> getAllDocDetails() {
 		return docMapper.getAllDocDetails();
 	}
+
+
 	@Transactional
 	@Override
 	public void deleteDocDetail(String[] ids) {
@@ -40,10 +49,14 @@ public class DocServiceImpl implements DocService {
 			docMapper.deleteDocDetail(Integer.valueOf(id));
 		}
 	}
+
+
 	@Override
 	public List<Doc> getAllDocsByTeacherId(String teacherId) {
 		return docMapper.getAllDocsByTeacherId(teacherId);
 	}
+
+
 	@Transactional
 	@Override
 	public void teacherAddDoc(String size,String docId, String name, String url, String filename, String description, Teacher teacher) {
@@ -53,8 +66,7 @@ public class DocServiceImpl implements DocService {
 		doc.setCreateTime(createTime);
 		doc.setName(name);
 		doc.setTeacher(teacher);
-		
-		
+
 		if("-1".equals(docId)) {
 			//需要插入doc表
 			docMapper.addDoc(doc);

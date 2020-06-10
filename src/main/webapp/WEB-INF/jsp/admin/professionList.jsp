@@ -92,11 +92,6 @@
 		title : '专业名称',
 		width : 120,
 		align : 'center'
-	}, {
-		field : 'introduction',
-		title : '专业介绍',
-		width : 400,
-		align : 'left'
 	}
 	 ] ];
 	
@@ -122,7 +117,7 @@
 		
 		// 添加员工窗口
 		$('#addProfessionWindow').window({
-            title: '添加员工信息',
+            title: '添加专业信息',
             width: 400,
             modal: true,
             shadow: true,
@@ -143,7 +138,6 @@
 		$("#isUpdate").val("1");
 		//将数据回显,查看easyui的帮助文档
 		$("#name").val(rowData.name);
-		 $("#introduction").val(rowData.introduction);
 		 $("#bianhao").show();
 		$("#id").val(rowData.id);
 		$("#id").attr("readonly","readonly");
@@ -191,10 +185,6 @@
 					<tr>
 						<td>名称</td>
 						<td><input id="name" type="text" name="name" class="easyui-validatebox"  /></td>
-					</tr>
-					<tr>
-						<td>介绍</td>
-						<td><input id="introduction" type="text" name="introduction" class="easyui-validatebox"  /></td>
 					</tr>
 				</table>
 			</form> 

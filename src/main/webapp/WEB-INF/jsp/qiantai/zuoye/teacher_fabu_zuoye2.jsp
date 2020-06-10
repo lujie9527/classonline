@@ -15,6 +15,15 @@
 
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css"/>
 
+    <style>
+        label{
+            line-height: 50px;
+        }
+        h2{
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -47,9 +56,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -71,16 +86,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -101,29 +111,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-2 text-right" style="margin-top:10px;">
-            <ul class="nav nav-tabs flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath }/job/all"
-                       style=" width:100px;">批改作业</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath }/job/teacher/show_fabu"
-                       style=" width:100px;">发布作业</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-md-2"></div>
-
-        <div class="col-md-6 text-left">
-
+        <div class="col-md-12">
             <form method="post" action="${pageContext.request.contextPath}/job/teacher/fabu">
+                <br>
+                <h2>发布作业</h2>
+                <br>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-9 col-md-offset-1">
                         <div class="form-inline">
-                            <label>所属专业:</label>&nbsp;
-                            <select name="professionId" class="form-control" id="professionId">
+                            <label class="col-md-2 control-label">所属专业：</label>
+                            <select name="professionId" class="col-md-3 form-control" id="professionId">
                                 <option value="-1">请选择专业</option>
                                 <c:forEach items="${professions}" var="profession">
                                     <option value="${profession.id }">${profession.name }</option>
@@ -131,13 +128,13 @@
                             </select>
                         </div>
                     </div>
-
                 </div>
+
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-9">
                         <div class="form-inline">
-                            <label>所属班级:</label>&nbsp;
-                            <select name="banjiId" class="form-control" id="banjiId">
+                            <label class="col-md-2 control-label">所属班级：</label>
+                            <select name="banjiId" class="col-md-3 form-control" id="banjiId">
                                 <option>请选择班级</option>
                                 <c:forEach items="${banjis}" var="banji">
                                 <option value="${banji.id}">${banji.name}</option>
@@ -147,44 +144,38 @@
                     </div>
                 </div>
 
-
-
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-inline">
-                            <label>最迟提交时间:</label>&nbsp;
-                            <input name="lastTime" type="date" class="form-control" id="date_info"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top:10px;">
-                    <div class=" col-md-7">
-                        <div class="form-inline">
-                            <label>作业标题:</label>&nbsp;
-                            <input name="jobTitle" type="text" class="form-control" id="jobTitle" placeholder="输入题目……">
+                            <label class="col-md-2 control-label">提交截止：</label>
+                            <input name="lastTime" type="datetime-local" class="col-md-3 form-control" id="date_info">
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class=" col-md-9">
                         <div class="form-inline">
-                            <label>作业内容：</label>
-                            <div id="editor"></div>
+                            <label class="col-md-2 control-label">作业标题：</label>
+                            <input name="jobTitle" type="text" class="col-md-7 form-control" id="jobTitle" placeholder="输入题目……">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-inline">
+                            <label class="col-md-2 control-label">作业内容：</label><br>
+                            <div id="editor" class="col-md-12" ></div>
                             <textarea id="jobDetail" name="jobDetail" hidden="hidden"></textarea>
                         </div>
                     </div>
                 </div>
-
-                <br/>
-                <button type="submit" id="ok" class="btn btn-info">发布</button>
+                <br>
+                <button type="submit" id="ok" class="btn btn-info" style="width: 100px;margin-left: 50px">发布</button>
             </form>
         </div>
-        <div class="col-md-2"></div>
     </div>
 </div>
-
 
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>
@@ -200,7 +191,24 @@
     editor.customConfig.onchange = function(html){
         $jobDetail.val(html);
     };
-    editor.customConfig.uploadImgServer='/upload';
+    editor.customConfig.uploadImgServer='${pageContext.request.contextPath}/upload/tupian';
+
+    editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+    editor.customConfig.uploadImgMaxLength = 5;
+    editor.customConfig.uploadFileName = 'myFileName';
+    editor.customConfig.uploadImgHooks = {
+        customInsert: function (insertImg, result, editor) {
+            // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+            // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+            // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+            var url =result.data;
+            insertImg(url);
+
+            // result 必须是一个 JSON 格式字符串！！！否则报错
+        }
+    };
+
     editor.create();
 
     $jobDetail.val(editor.txt.html());

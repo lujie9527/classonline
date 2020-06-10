@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.classonline.bean.*;
 import com.classonline.service.JobService;
 import com.classonline.utils.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,6 +68,19 @@ public class JobController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/getAllJob",method = RequestMethod.GET)
+	public String getJobsByPage(@RequestParam(required = false,value = "keyWord")String keyWord,
+								@RequestParam(required = false,defaultValue = "1",value = "pageNum")int pageNum,
+								Model model){
+		PageHelper.startPage(pageNum,8);
+		List<Job> jobList = jobService.findJobByJobTitle(keyWord);
+		model.addAttribute("recordCount",jobList.size());
+		PageInfo<Job> pageInfo = new PageInfo<Job>(jobList,2);
+		model.addAttribute("pageInfo",pageInfo);
+		model.addAttribute("keyWord",keyWord);
+		return "/qiantai/zuoye/stu_jobLis_page";
+	}
+
 	//学生作答
 	@RequestMapping("/doJob")
 	public ModelAndView doHomework(@RequestParam("jobId") Integer jobId){
@@ -79,14 +95,23 @@ public class JobController {
 	//学生提交作业
 	@RequestMapping(value = "/stuSubmitJob" , method = RequestMethod.POST)
 
-	public String stuSubmitJob(HttpServletRequest request,String homework ,Integer jobId){
-        System.out.println("我的JOBID："+jobId);
+	public String stuSubmitJob(HttpServletRequest request, HttpServletResponse response,String homework , Integer jobId) throws IOException {
+
 		String currentTime=TimeUtils.getCurrentTime();
+		String stuLastTime = jobService.getlastTime(jobId);
+		if (currentTime.compareTo(stuLastTime)>0){
+			 return "/qiantai/zuoye/stu_fail";
+		}else{
+			Student student = (Student) request.getSession().getAttribute("user");
 
-		Student student = (Student) request.getSession().getAttribute("user");
+			int stuCount = jobService.getState(jobId);
+			stuCount+=1;
+			jobService.updateState(stuCount,jobId);
 
-		jobService.stuTijiao(homework,currentTime,student.getId(),student.getName(),jobId);
-		return "redirect:/job/stuHomework";
+			jobService.stuTijiao(homework,currentTime,student.getId(),student.getName(),jobId);
+			return "redirect:/job/stuHomework";
+		}
+
 	}
 
 	//学生查看自己已提交的作业
@@ -118,9 +143,8 @@ public class JobController {
 	public String teacherFabu(HttpServletRequest request,String jobTitle,String jobDetail, String lastTime,
 							  Integer banjiId, Integer professionId) throws IOException {
 
-		System.out.println("题目详情是什么："+jobDetail);
 		Teacher teacher=(Teacher) request.getSession().getAttribute("user");
-
+//		String lastTimes = TimeUtils.dateReturn(lastTime);
 		jobService.teacherFabu(jobTitle,jobDetail,lastTime,teacher.getId(),banjiId,professionId);
 		return "redirect:/job/showJobList";
 	}
@@ -150,7 +174,7 @@ public class JobController {
 	public String uploadGrade(@RequestParam(value = "jobGrade") Integer jobGrade,@RequestParam("id") Integer id){
 
 		jobService.uploadGrade(jobGrade,id);
-		return "redirect:/job/showJobList";
+        return "redirect:/job/showJobList";
 	}
 
 

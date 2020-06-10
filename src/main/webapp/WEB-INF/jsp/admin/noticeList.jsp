@@ -78,7 +78,7 @@
 	// 定义列
 	var columns = [ [ {
 		field : 'f',
-		checkbox : true,
+		checkbox : true
 	}, {
 		field : 'title',
 		title : '标题',
@@ -130,7 +130,7 @@
 		
 		// 添加员工窗口
 		$('#addNoticeWindow').window({
-            title: '添加员工信息',
+            title: '添加公告信息',
             width: 450,
             modal: true,
             shadow: true,
@@ -145,7 +145,7 @@
 	function doDblClickRow(rowIndex, rowData){
 		//将添加窗口弹出
 		$("#addNoticeWindow").panel({
-			title:"修改员工信息"
+			title:"修改公告信息"
 		});
 		$("#addNoticeWindow").window('open');
 		
@@ -172,7 +172,7 @@
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
-	<form id="delBacth"  method="post"><!-- -action="${pageContext.request.contextPath }/delStaffServlet" -->
+	<form id="delBacth"  method="post">
 	    <div region="center" border="false">
 	    	<table id="grid">
 	    		<input type="hidden" name="id" value="id">
@@ -187,12 +187,13 @@
 		</div>
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
 		 <form id="noticeForm" action="${pageContext.request.contextPath }/admin/notice/addOrUpdate" method="post">
-		 	<input type="hidden" name="isUpdate" name="isUpdate"> 
+
 			<table class="table-edit" width="80%" align="center">
 					<tr class="title1">
-						<td colspan="2">员工信息</td>
+						<td colspan="2">公告信息</td>
 					</tr>
-					<tr id="bianhao">
+				<input type="hidden" id="isUpdate" name="isUpdate">
+				<tr id="bianhao">
 						<td>编号</td>
 						<td><input id="id" type="text" name="id" class="easyui-validatebox"  /></td>
 					</tr>
@@ -206,9 +207,8 @@
 						<textarea rows="4" cols="40" name="content" id="content" class="easyui-validatebox" ></textarea>
 						<!-- <input id="content" type="text" name="content"  /></td> -->
 					</tr>
-					
 				</table>
-			</form> 
+			</form>
 		</div>
 	</div>
 </body>

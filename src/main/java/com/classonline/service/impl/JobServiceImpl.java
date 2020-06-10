@@ -148,4 +148,12 @@ public class JobServiceImpl implements JobService {
         jobMapper.updateState(state,id);
     }
 
+    public String getlastTime(Integer id){
+        return jobMapper.getlastTime(id);
+    }
+
+    public List<Job> findJobByJobTitle(String jobTitle){
+        return jobMapper.findJobByJobTitle(jobTitle);
+    }
+
 }

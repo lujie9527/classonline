@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface SubjectMapper {
 
+
+    //增加试题
     @Insert("insert into subject (subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,subjectAnswer,subjectParse) values (#{subjectTitle},#{subjectOptionA},#{subjectOptionB},#{subjectOptionC},#{subjectOptionD},#{subjectAnswer},#{subjectParse})")
 
     void addSubject(@Param("subjectTitle") String subjectTitle, @Param("subjectOptionA") String subjectOptionA,
@@ -14,17 +16,20 @@ public interface SubjectMapper {
                     @Param("subjectOptionD") String subjectOptionD, @Param("subjectAnswer") String subjectAnswer,
                     @Param("subjectParse") String subjectParse);
 
+
     //学生提交在线练习插入学生成绩
     @Insert("insert into student (id,grade) value (#{id},#{grade})")
 
     void subjectUpload(@Param("id")int id,@Param("grade")String grade);
 
 
+    //根据试题标题模糊查询试题
     @Select("select * from subject where subjectTitle like CONCAT('%',#{subjectTitle},'%')")
 
    List<Subject> findSubjectByTitle(@Param("subjectTitle") String subjectTitle);//根据试题标题查找试题
 
 
+    //根据试题ID查找试题
     @Select("select * from subject where subjectId=#{subjectId}")
 
     Subject findSubjectById(Integer subjectId);
@@ -42,6 +47,7 @@ public interface SubjectMapper {
 //    void updateSubject(String subjectTitle,String subjectOptionA,String subjectOptionB,String subjectOptionC,
 //                       String subjectOptionD,String subjectAnswer,String subjectParse);
 
+    //修改试题信息
     @Update("update subject set subjectTitle=#{subjectTitle},subjectOptionA=#{subjectOptionA},subjectOptionB=#{subjectOptionB}," +
             "subjectOptionC=#{subjectOptionC},subjectOptionD=#{subjectOptionD},subjectAnswer=#{subjectAnswer}," +
             "subjectParse=#{subjectParse} where subjectId=#{subjectId}")
@@ -58,5 +64,6 @@ public interface SubjectMapper {
     @Select("select subjectAnswer from subject where subjectId=#{subjectId}")
     String getSubAnswerById(int subjectId);
 
+//    @Select("select * from subject order by rand() limit 20")
 
 }

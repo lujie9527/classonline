@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.classonline.bean.Notice;
 import com.classonline.service.NoticeService;
-import com.classonline.utils.JedisUtil;
 
 @Controller
 //@RequestMapping("/qiantai")
@@ -23,9 +22,9 @@ public class IndexController {
 
     @RequestMapping("/")
     public ModelAndView index() {
-        //获取公告,首先从redis获取，没有则去数据库查询
+
         notices = noticeService.getNotices();
-        //存放在redis中
+
         ModelAndView mv = new ModelAndView();
         mv.addObject("notices", notices);
         mv.setViewName("/qiantai/index");

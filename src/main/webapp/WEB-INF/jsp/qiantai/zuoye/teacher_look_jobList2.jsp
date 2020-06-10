@@ -15,7 +15,6 @@
 
 </head>
 <body>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
     <a class="navbar-brand " href="${pageContext.request.contextPath }">C++</a>
@@ -45,9 +44,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">作业管理</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布试题</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改试题</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/teacher/show_fabu">发布作业</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath }/job/showJobList/">批改作业</a>
                 </div>
+            </li>
+        </c:if>
+
+        <c:if test="${isStu==2}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
             </li>
         </c:if>
 
@@ -69,16 +74,11 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath }/gerenzhongxin/home" target="_blank">个人中心</a>
         </li>
-        <c:if test="${user!=null}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
-            </li>
-        </c:if>
-        <c:if test="${isStu==2}">
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath }/sub/allSub">试题管理</a>
-            </li>
-        </c:if>
+
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/admin/index">后台管理</a>
+        </li>
+
     </ul>
 
     <c:if test="${user==null}">
@@ -96,17 +96,19 @@
         </ul>
     </c:if>
 </nav>
-<div class="container" style="margin:10px 30px">
-    <table class="table table-bordered" style="width: 1280px">
+
+<h2 style="text-align: center">作业列表</h2>
+    <table class="table table-bordered" style="width: 1400px">
         <thead>
         <tr>
-            <th style="text-align: center;width:90px">作业编号</th>
+            <th style="text-align: center;width: 90px">作业编号</th>
             <th style="text-align: center">作业标题</th>
             <th style="text-align: center">作业内容</th>
-            <th style="text-align: center;width:90px">专业编号</th>
-            <th style="text-align: center;width:90px">班级编号</th>
-            <th style="text-align: center;width:90px">发布时间</th>
-            <th style="text-align: center;width:90px">截止时间</th>
+            <th style="text-align: center;width: 90px;">专业编号</th>
+            <th style="text-align: center;width: 90px;">班级编号</th>
+            <th style="text-align: center;width: 90px;">发布时间</th>
+            <th style="text-align: center;width: 100px;">截止时间</th>
+            <th style="text-align: center;width: 90px;">提交次数</th>
             <th style="text-align: center;width:80px">查看</th>
         </tr>
         </thead>
@@ -121,15 +123,12 @@
                 <td style="text-align: center">${job.banji.name}</td>
                 <td style="text-align: center">${job.uploadTime}</td>
                 <td style="text-align: center">${job.lastTime}</td>
+                <td style="text-align: center">${job.state}</td>
                 <td style="text-align: center"><a href="${pageContext.request.contextPath}/job/Detail?jobId=${job.id}">查看</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-
-
-</div>
-
 
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.4.0.min.js"></script>

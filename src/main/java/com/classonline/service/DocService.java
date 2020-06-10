@@ -15,15 +15,26 @@ public interface DocService {
 	 */
 	List<Doc> getAllDocs(String keyword);
 
+
 	/**
-	 *
+	 * 根据资料ID获取资料
 	 * @param docId
 	 * @return
 	 */
 	List<Docdetail> getDocDetailsById(int docId);
 
+	/**
+	 * 下载资料
+	 * @param docdetailId
+	 * @param useId
+	 * @param downTime
+	 */
 	void addDocDownload(int docdetailId, String useId, String downTime);
 
+	/**
+	 * 获取资料的详细信息
+	 * @return
+	 */
 	List<Docdetail> getAllDocDetails();
 
 	void deleteDocDetail(String[] ids);

@@ -39,7 +39,7 @@ public class SubjectController {
         HttpSession session = request.getSession();
 
         Integer flag=(Integer) session.getAttribute("isStu");
-        if(flag!=null) { //学生
+        if(flag==1) { //学生
             return "/qiantai/subjectTest/subTestReady";
         }else {
 
@@ -47,13 +47,14 @@ public class SubjectController {
         }
     }
 
+    //提交试卷
     @RequestMapping(value = "/subresult",method = RequestMethod.POST)
     @ResponseBody
     public List<String> subResult(HttpServletRequest request, @RequestBody ArrayList<String> subAnswers){
 
+        System.out.println("subAnswers:"+subAnswers);
         Student student = (Student) request.getSession().getAttribute("user");
         subjectService.accountResult(student.getId(), subAnswers);
-        System.out.println("LIST=="+subAnswers);
         return subAnswers;
     }
 
@@ -83,6 +84,8 @@ public class SubjectController {
         return "/qiantai/subjectTest/showAnswer";
     }
 
+
+    //考试页面：获取试题列表
     @RequestMapping("/getSubList")
 
     public ModelAndView getSubList()throws Exception{
@@ -113,7 +116,7 @@ public class SubjectController {
         return "qiantai/subjectTest/subjectQuery";
     }
 
-    @RequestMapping("subShow")
+    @RequestMapping("/subShow")
     public ModelAndView showSubject(@RequestParam("subjectId")Integer subjectId){
 
         ModelAndView mv = new ModelAndView();
@@ -148,7 +151,7 @@ public class SubjectController {
         ModelAndView mv = new ModelAndView();
         subjectService.updateSubject(subjectId,subjectTitle,subjectOptionA,subjectOptionB,subjectOptionC,subjectOptionD,
                 subjectAnswer,subjectParse);
-        mv.setViewName("/qiantai/subjectTest/subjectUpdate");
+        mv.setViewName("redirect:/sub/allSub");
         return mv;
     }
 

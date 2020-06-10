@@ -24,6 +24,11 @@ public class TimeUtils {
 		String currentTime = sdf.format(new Date());
 		return currentTime;
 	}
+
+//	public static String dateReturn(Date myTime){
+//        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        return sdf.format(myTime);
+//    }
 	
 	//文件大小转换
 	public static String getNetFileSizeDescription(long size) {

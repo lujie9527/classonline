@@ -54,7 +54,7 @@
 			{ "id":"17","pId":"0","name":"留言解惑管理", "page":"${pageContext.request.contextPath}/admin/liuyan/list"},
 			{ "id":"18","pId":"0","name":"资料管理", "page":"${pageContext.request.contextPath}/admin/doc/list"},
 			{ "id":"19","pId":"0","name":"作业管理", "page":"${pageContext.request.contextPath}/admin/job/list"},
-			<%--{"id":"21","pId":"0","name":"在线考试试题管理","page":"${pageContext.request.contextPath}/admin/subject/list"}--%>
+			{"id":"21","pId":"0","name":"在线考试试题管理","page":"${pageContext.request.contextPath}/admin/subject/list"}
 
 	];
 		

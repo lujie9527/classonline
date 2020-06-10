@@ -20,7 +20,7 @@ public interface NoticeMapper {
 	@Results({
 		@Result(column="adminId",property="admin",one=@One(select="com.classonline.mapper.AdminMapper.getAdminById"))
 	})
-	@Select("select * from notice  order by noticeTime desc")
+	@Select("select * from notice order by noticeTime desc")
 
 	List<Notice> getNotices();
 
